@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Simulor - Responsive Bootstrap 4 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets\images\favicon.ico" />
+
+    <!-- plugin css -->
+    <link
+      href="assets\libs\datatables\dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="assets\libs\datatables\responsive.bootstrap4.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- App css -->
+    <link
+      href="assets\css\bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="assets\css\icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets\css\app.min.css" rel="stylesheet" type="text/css" />
+    <style>
+      .pagination {
+        margin-left: 800px;
+        display: inline-block;
+      }
+
+      .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Begin page -->
+    <div id="wrapper">
+      <!-- Topbar Start -->
+      <div class="navbar-custom">
+        <ul class="list-unstyled topnav-menu float-right mb-0">
+          <li class="dropdown d-none d-lg-block">
+            <a
+              class="nav-link dropdown-toggle mr-0 waves-effect waves-light"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="false"
+              aria-expanded="false"
+            >
+              <img
+                src="assets\images\flags\us.jpg"
+                alt="user-image"
+                class="mr-1"
+                height="12"
+              />
+              <span class="align-middle"
+                >English <i class="mdi mdi-chevron-down"></i>
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <img
+                  src="assets\images\flags\germany.jpg"
+                  alt="user-image"
+                  class="mr-1"
+                  height="12"
+                />
+                <span class="align-middle">German</span>
+              </a>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <img
+                  src="assets\images\flags\italy.jpg"
+                  alt="user-image"
+                  class="mr-1"
+                  height="12"
+                />
+                <span class="align-middle">Italian</span>
+              </a>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <img
+                  src="assets\images\flags\spain.jpg"
+                  alt="user-image"
+                  class="mr-1"
+                  height="12"
+                />
+                <span class="align-middle">Spanish</span>
+              </a>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <img
+                  src="assets\images\flags\russia.jpg"
+                  alt="user-image"
+                  class="mr-1"
+                  height="12"
+                />
+                <span class="align-middle">Russian</span>
+              </a>
+            </div>
+          </li>
+
+          <li class="dropdown notification-list">
+            <a
+              class="nav-link dropdown-toggle waves-effect waves-light"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="false"
+              aria-expanded="false"
+            >
+              <i class="fe-bell noti-icon"></i>
+              <span class="badge badge-danger rounded-circle noti-icon-badge"
+                >2</span
+              >
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+              <!-- item-->
+              <div class="dropdown-item noti-title">
+                <h5 class="m-0">
+                  <span class="float-right">
+                    <a href="" class="text-dark">
+                      <small>Clear All</small>
+                    </a> </span
+                  >Notification
+                </h5>
+              </div>
+
+              <div class="slimscroll noti-scroll">
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <div class="notify-icon">
+                    <img
+                      src="assets\images\users\avatar-2.jpg"
+                      class="img-fluid rounded-circle"
+                      alt=""
+                    />
+                  </div>
+                  <p class="notify-details">Cristina Pride</p>
+                  <p class="text-muted mb-0 user-msg">
+                    <small>Hi, How are you? What about our next meeting</small>
+                  </p>
+                </a>
+
+                <!-- item-->
+                <a
+                  href="javascript:void(0);"
+                  class="dropdown-item notify-item active"
+                >
+                  <div class="notify-icon bg-warning">
+                    <i class="mdi mdi-comment-account-outline"></i>
+                  </div>
+                  <p class="notify-details">
+                    Caleb Flakelar commented on Admin<small class="text-muted"
+                      >1 min ago</small
+                    >
+                  </p>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <div class="notify-icon bg-info">
+                    <i class="mdi mdi-account-plus"></i>
+                  </div>
+                  <p class="notify-details">
+                    New user registered.<small class="text-muted"
+                      >5 hours ago</small
+                    >
+                  </p>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <div class="notify-icon">
+                    <img
+                      src="assets\images\users\avatar-4.jpg"
+                      class="img-fluid rounded-circle"
+                      alt=""
+                    />
+                  </div>
+                  <p class="notify-details">Karen Robinson</p>
+                  <p class="text-muted mb-0 user-msg">
+                    <small
+                      >Wow ! this admin looks good and awesome design</small
+                    >
+                  </p>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <div class="notify-icon bg-danger">
+                    <i class="mdi mdi-comment-account-outline"></i>
+                  </div>
+                  <p class="notify-details">
+                    Caleb Flakelar commented on Admin<small class="text-muted"
+                      >4 days ago</small
+                    >
+                  </p>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                  <div class="notify-icon bg-primary">
+                    <i class="mdi mdi-heart"></i>
+                  </div>
+                  <p class="notify-details">
+                    Carlos Crouch liked
+                    <b>Admin</b>
+                    <small class="text-muted">13 days ago</small>
+                  </p>
+                </a>
+              </div>
+
+              <!-- All-->
+              <a
+                href="javascript:void(0);"
+                class="dropdown-item text-center text-primary notify-item notify-all"
+              >
+                View all
+                <i class="fi-arrow-right"></i>
+              </a>
+            </div>
+          </li>
+
+          <li class="dropdown notification-list">
+            <a
+              class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="false"
+              aria-expanded="false"
+            >
+              <img
+                src="assets\images\users\avatar-4.jpg"
+                alt="user-image"
+                class="rounded-circle"
+              />
+              <span class="pro-user-name ml-1">
+                Morgan K <i class="mdi mdi-chevron-down"></i>
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+              <!-- item-->
+              <div class="dropdown-item noti-title">
+                <h6 class="m-0">Welcome !</h6>
+              </div>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <i class="dripicons-user"></i>
+                <span>My Account</span>
+              </a>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <i class="dripicons-gear"></i>
+                <span>Settings</span>
+              </a>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <i class="dripicons-help"></i>
+                <span>Support</span>
+              </a>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <i class="dripicons-lock"></i>
+                <span>Lock Screen</span>
+              </a>
+
+              <div class="dropdown-divider"></div>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <i class="dripicons-power"></i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+
+          <li class="dropdown notification-list">
+            <a
+              href="javascript:void(0);"
+              class="nav-link right-bar-toggle waves-effect waves-light"
+            >
+              <i class="fe-settings noti-icon"></i>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="list-unstyled menu-left mb-0">
+          <li class="float-left">
+            <button class="button-menu-mobile open-left disable-btn">
+              <i class="fe-menu"></i>
+            </button>
+          </li>
+          <li class="app-search d-none d-sm-block">
+            <form>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search..."
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit">
+                    <i class="fe-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </li>
+        </ul>
+      </div>
+      <!-- end Topbar -->
+
+      <!-- ========== Left Sidebar Start ========== -->
+      <div class="left-side-menu">
+        <div class="slimscroll-menu">
+          <!-- LOGO -->
+          <a href="index.html" class="logo text-center mb-4">
+            <span class="logo-lg">
+              <img src="assets\images\logo-dark.png" alt="" height="20" />
+            </span>
+            <span class="logo-sm">
+              <img src="assets\images\logo-sm.png" alt="" height="24" />
+            </span>
+          </a>
+
+          <!--- Sidemenu -->
+          <div id="sidebar-menu">
+            <ul class="metismenu" id="side-menu">
+              <li class="menu-title">Navigation</li>
+
+              <li>
+                <a href="admin.html">
+                  <i class="fe-airplay"></i>
+                  <span class="badge badge-success float-right">01</span>
+                  <span> Dashboard </span>
+                </a>
+              </li>
+
+              <li>
+                <a href="javascript: void(0);">
+                  <i class="fe-book-open"></i>
+                  <span> Pages </span>
+                  <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                  <li>
+                    <a href="pages-conteact.html">Customer</a>
+                  </li>
+                  <li>
+                    <a href="pages-menu.html">Menu</a>
+                  </li>
+                  <li>
+                    <a href="pages-table.html">Table</a>
+                  </li>
+                  <li>
+                    <a href="pages-wareHouse.html">Ware House</a>
+                  </li>
+                  <li>
+                    <a href="pages-nhanvien.html">Staff</a>
+                  </li>
+
+                  <li>
+                    <a href="pages-hoadon.html">Invoice</a>
+                  </li>
+                  <li>
+                    <a href="pages-thongkeAn.html">Thống kê món ăn bán được</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <!-- End Sidebar -->
+
+          <div class="clearfix"></div>
+        </div>
+        <!-- Sidebar -left -->
+      </div>
+      <!-- Left Sidebar End -->
+
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+
+      <div class="content-page">
+        <div class="content">
+          <!-- Start Content-->
+          <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+              <div class="col-12">
+                <div class="page-title-box">
+                  <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                      <li class="breadcrumb-item">
+                        <a href="javascript: void(0);">Simulor</a>
+                      </li>
+                      <li class="breadcrumb-item">
+                        <a href="javascript: void(0);">Pages</a>
+                      </li>
+                      <li class="breadcrumb-item active">Menu</li>
+                    </ol>
+                  </div>
+                  <h4 class="page-title">Menu</h4>
+                </div>
+              </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <button
+                      type="button"
+                      class="btn btn-primary mb-3"
+                      data-toggle="modal"
+                      data-target="#addcontactmodal"
+                    >
+                      <i class="mdi mdi-account-plus mr-1"></i> THÊM MÓN ĂN
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-light float-right d-none d-sm-block ml-2"
+                    >
+                      <i class="mdi mdi-format-list-bulleted"></i>
+                    </button>
+                    <button type="button" class="btn btn-light float-right">
+                      <i class="mdi mdi-filter-variant mr-1"></i> Filter
+                    </button>
+
+                    <table
+                      id="basic-datatable"
+                      class="table table-hover dt-responsive nowrap table-centered"
+                    >
+                      <thead>
+                        <tr>
+                          <th>STT</th>
+                          <th>ID MÓN</th>
+                          <th>TÊN MÓN</th>
+
+                          <th>GIÁ</th>
+                          <th>ĐƠN VỊ TÍNH</th>
+                          <th>MÔ TẢ</th>
+                          <th>Hành động</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="myTable">
+                        <tr style="background-color: rgb(198, 222, 210)">
+                          <th>1</th>
+                          <th scope="row">#001</th>
+                          <td>
+                            <img
+                              src="assets/images/food/ganuong.png"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);"
+                                >GÀ CHIÊN NƯỚC MẮN</a
+                              >
+                            </p>
+                          </td>
+
+                          <td>250.000VND</td>
+                          <td>phần</td>
+                          <td>
+                            Gà được nướng 1 lửa tới khi chín mềm thơm ngon nức
+                          </td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <th scope="row">#002</th>
+                          <td>
+                            <img
+                              src="assets/images/food/BanhCuonTom.png"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);">BÁNH TRÁN CUỐN</a>
+                            </p>
+                          </td>
+
+                          <td>80.000VND</td>
+                          <td>phần</td>
+                          <td>Tôm sú tư bắt từ biển hấm vừa chín</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr style="background-color: rgb(198, 222, 210)">
+                          <th>3</th>
+                          <th scope="row">#003</th>
+                          <td>
+                            <img
+                              src="assets/images/food/pho.png"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);">PHỞ</a>
+                            </p>
+                          </td>
+
+                          <td>55.000VND</td>
+                          <td>phần</td>
+                          <td>Phở hà nội với bò tái mền ngọt</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>4</th>
+                          <th scope="row">#004</th>
+                          <td>
+                            <img
+                              src="com.jpg"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);">CƠM GÀ</a>
+                            </p>
+                          </td>
+
+                          <td>50.000VND</td>
+                          <td>phần</td>
+                          <td>Gà được chiên khi chín mềm thơm ngon nức</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr style="background-color: rgb(198, 222, 210)">
+                          <th>5</th>
+                          <th scope="row">#005</th>
+                          <td>
+                            <img
+                              src="assets/images/food/ganuong.png"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);">MÌ XÀO TÔM</a>
+                            </p>
+                          </td>
+
+                          <td>45.000 VND</td>
+                          <td>phần</td>
+                          <td>Mì xào tom sợ mì dai ngon tôm gòn ngọt</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>6</th>
+                          <th scope="row">#006</th>
+                          <td>
+                            <img
+                              src="assets/images/food/bo.png"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);">Bò Nướng</a>
+                            </p>
+                          </td>
+
+                          <td>150.000VND</td>
+                          <td>phần</td>
+                          <td>bò mọng nước vừa chín mềm ngon</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr style="background-color: rgb(198, 222, 210)">
+                          <th>7</th>
+                          <th scope="row">#007</th>
+                          <td>
+                            <img
+                              src="lon.jpg"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);">VỊT LỘN XÀO ME</a>
+                            </p>
+                          </td>
+
+                          <td>60.000VND</td>
+                          <td>phần</td>
+                          <td>Vịt lộn xào me chua chua ngọt ngọt</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>8</th>
+                          <th scope="row">#008</th>
+                          <td>
+                            <img
+                              src="heoquay.jpg"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);">HEO QUAY</a>
+                            </p>
+                          </td>
+
+                          <td>150.00VND</td>
+                          <td>phần</td>
+                          <td>heo quay với lửa hồng</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr style="background-color: rgb(198, 222, 210)">
+                          <th>9</th>
+                          <th scope="row">#009</th>
+                          <td>
+                            <img
+                              src="tauchien.jpg"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);"
+                                >TÀU HỮU CHIÊN GIÒN</a
+                              >
+                            </p>
+                          </td>
+
+                          <td>70.000VND</td>
+                          <td>phần</td>
+                          <td>tàu hữu chiên giòn mọng sữa đậu</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>10</th>
+                          <th scope="row">#010</th>
+                          <td>
+                            <img
+                              src="CHAN.jpg"
+                              alt="contact-img"
+                              height="36"
+                              title="contact-img"
+                              class="rounded-circle float-left mr-2"
+                            />
+                            <p class="mb-0 font-weight-medium">
+                              <a href="javascript: void(0);">CHÂN GÀ NƯỚNG</a>
+                            </p>
+                          </td>
+
+                          <td>12.000VND</td>
+                          <td>cập</td>
+                          <td>Chân gà nhiều thịt nướng da giòn thịt mềm</td>
+
+                          <td>
+                            <button
+                              data-toggle="modal"
+                              data-target="#editcontactmodal"
+                              href="#"
+                              class="btn btn-warning btn-sm fa-edit"
+                            >
+                              SỬA
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm delete"
+                              >XÓA</a
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="pagination">
+                      <a href="#">&laquo;</a>
+                      <a href="#">1</a>
+                      <a href="#">2</a>
+                      <a href="#">3</a>
+                      <a href="#">4</a>
+                      <a href="#">5</a>
+                      <a href="#">6</a>
+                      <a href="#">&raquo;</a>
+                    </div>
+                  </div>
+                  <!-- end card-body-->
+                </div>
+                <!-- end card -->
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- container-fluid -->
+        </div>
+        <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                2022 - 2023 &copy; haianhem <a href="">HAIANHEM</a>
+              </div>
+              <div class="col-md-6">
+                <div class="text-md-right footer-links d-none d-sm-block">
+                  <a href="#">About Us</a>
+                  <a href="#">Help</a>
+                  <a href="#">Contact Us</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- end Footer -->
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- End Page content -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+    <div
+      class="modal fade"
+      id="addcontactmodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myCenterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myCenterModalLabel">Thêm món ăn</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              ×
+            </button>
+          </div>
+          <div class="modal-body p-4">
+            <form role="form">
+              <div class="form-group">
+                <label for="name">Id món</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idmon"
+                  placeholder="nhập id"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Tên món</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="tenmon"
+                  placeholder="nhập tên món"
+                />
+              </div>
+              <div class="form-group">
+                <label for="position">Giá</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="gia"
+                  placeholder="Nhập giá"
+                />
+              </div>
+              <div class="form-group">
+                <label for="company">Đơn vị tính</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dvt"
+                  placeholder="Nhập đơn vị tính"
+                />
+              </div>
+              <div class="form-group">
+                <label for="company">Mô tả</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="mota"
+                  placeholder="Nhập Mô tả"
+                />
+              </div>
+              <div class="text-right">
+                <button
+                  type="submit"
+                  id="addMenu"
+                  class="btn btn-success waves-effect waves-light"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div
+      class="modal fade"
+      id="editcontactmodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myCenterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myCenterModalLabel">Sửa món ăn</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              ×
+            </button>
+          </div>
+          <div class="modal-body p-4">
+            <form role="form">
+              <div class="form-group">
+                <label for="name">Id món</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idmon"
+                  placeholder="nhập id"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Tên món</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="tenmon"
+                  placeholder="nhập tên món"
+                />
+              </div>
+              <div class="form-group">
+                <label for="position">Giá</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="gia"
+                  placeholder="Nhập giá"
+                />
+              </div>
+              <div class="form-group">
+                <label for="company">Đơn vị tính</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dvt"
+                  placeholder="Nhập đơn vị tính"
+                />
+              </div>
+              <div class="form-group">
+                <label for="company">Mô tả</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="mota"
+                  placeholder="Nhập Mô tả"
+                />
+              </div>
+              <div class="text-right">
+                <button
+                  type="submit"
+                  id="editMenu"
+                  class="btn btn-success waves-effect waves-light"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- Right Sidebar -->
+    <div class="right-bar">
+      <div class="rightbar-title">
+        <a href="javascript:void(0);" class="right-bar-toggle float-right">
+          <i class="mdi mdi-close"></i>
+        </a>
+        <h5 class="m-0 text-white">Settings</h5>
+      </div>
+      <div class="slimscroll-menu">
+        <hr class="mt-0" />
+        <h5 class="pl-3">Basic Settings</h5>
+        <hr class="mb-0" />
+
+        <div class="p-3">
+          <div class="checkbox checkbox-primary mb-2">
+            <input id="checkbox1" type="checkbox" checked="" />
+            <label for="checkbox1"> Notifications </label>
+          </div>
+          <div class="checkbox checkbox-primary mb-2">
+            <input id="checkbox2" type="checkbox" checked="" />
+            <label for="checkbox2"> API Access </label>
+          </div>
+          <div class="checkbox checkbox-primary mb-2">
+            <input id="checkbox3" type="checkbox" />
+            <label for="checkbox3"> Auto Updates </label>
+          </div>
+          <div class="checkbox checkbox-primary mb-2">
+            <input id="checkbox4" type="checkbox" checked="" />
+            <label for="checkbox4"> Online Status </label>
+          </div>
+          <div class="checkbox checkbox-primary mb-0">
+            <input id="checkbox5" type="checkbox" checked="" />
+            <label for="checkbox5"> Auto Payout </label>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <hr class="mt-0" />
+        <h5 class="pl-3 pr-3">
+          Messages
+          <span class="float-right badge badge-pill badge-danger">25</span>
+        </h5>
+        <hr class="mb-0" />
+        <div class="p-3">
+          <div class="inbox-widget">
+            <div class="inbox-item">
+              <div class="inbox-item-img">
+                <img
+                  src="assets\images\users\avatar-1.jpg"
+                  class="rounded-circle"
+                  alt=""
+                />
+              </div>
+              <p class="inbox-item-author">
+                <a href="javascript: void(0);" class="text-dark">Chadengle</a>
+              </p>
+              <p class="inbox-item-text">Hey! there I'm available...</p>
+              <p class="inbox-item-date">13:40 PM</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img">
+                <img
+                  src="assets\images\users\avatar-2.jpg"
+                  class="rounded-circle"
+                  alt=""
+                />
+              </div>
+              <p class="inbox-item-author">
+                <a href="javascript: void(0);" class="text-dark">Tomaslau</a>
+              </p>
+              <p class="inbox-item-text">I've finished it! See you so...</p>
+              <p class="inbox-item-date">13:34 PM</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img">
+                <img
+                  src="assets\images\users\avatar-3.jpg"
+                  class="rounded-circle"
+                  alt=""
+                />
+              </div>
+              <p class="inbox-item-author">
+                <a href="javascript: void(0);" class="text-dark"
+                  >Stillnotdavid</a
+                >
+              </p>
+              <p class="inbox-item-text">This theme is awesome!</p>
+              <p class="inbox-item-date">13:17 PM</p>
+            </div>
+
+            <div class="inbox-item">
+              <div class="inbox-item-img">
+                <img
+                  src="assets\images\users\avatar-4.jpg"
+                  class="rounded-circle"
+                  alt=""
+                />
+              </div>
+              <p class="inbox-item-author">
+                <a href="javascript: void(0);" class="text-dark">Kurafire</a>
+              </p>
+              <p class="inbox-item-text">Nice to meet you</p>
+              <p class="inbox-item-date">12:20 PM</p>
+            </div>
+            <div class="inbox-item">
+              <div class="inbox-item-img">
+                <img
+                  src="assets\images\users\avatar-5.jpg"
+                  class="rounded-circle"
+                  alt=""
+                />
+              </div>
+              <p class="inbox-item-author">
+                <a href="javascript: void(0);" class="text-dark">Shahedk</a>
+              </p>
+              <p class="inbox-item-text">Hey! there I'm available...</p>
+              <p class="inbox-item-date">10:15 AM</p>
+            </div>
+          </div>
+          <!-- end inbox-widget -->
+        </div>
+        <!-- end .p-3-->
+      </div>
+      <!-- end slimscroll-menu-->
+    </div>
+    <!-- /Right-bar -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    <!-- Vendor js -->
+    <script src="assets\js\vendor.min.js"></script>
+    <script src="/assets/js/menu.js"></script>
+
+    <!-- datatable js
+    <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets\libs\datatables\dataTables.bootstrap4.min.js"></script>
+    <script src="assets\libs\datatables\dataTables.responsive.min.js"></script>
+    <script src="assets\libs\datatables\responsive.bootstrap4.min.js"></script> -->
+
+    <!-- App js -->
+    <!-- <script src="assets\js\app.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+    <script>
+      $(document).ready(function () {
+        // Default Datatable
+        $("#basic-datatable").DataTable({
+          pageLength: 8,
+          lengthMenu: [
+            [8, 15, 25, 50, -1],
+            [8, 15, 25, 50, "All"],
+          ],
+          language: {
+            paginate: {
+              previous: "<i class='mdi mdi-chevron-left'>",
+              next: "<i class='mdi mdi-chevron-right'>",
+            },
+          },
+          drawCallback: function () {
+            $(".dataTables_paginate > .pagination").addClass(
+              "pagination-rounded"
+            );
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
