@@ -2,6 +2,7 @@ import "bootstrap-icons/font/bootstrap-icons.css"; // Import CSS từ Bootstrap 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import CSS từ Bootstrap
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { Component } from "react";
+import './Login.css';
 
 class Login extends Component {
     constructor(props) {
@@ -26,9 +27,10 @@ class Login extends Component {
 
     handleSignin=(event)=>{
         event.preventDefault()
-        alert(this.state)
+        
     }
     render() {
+        
         return (
             <div>
                 <div className="container h-100">
@@ -54,8 +56,8 @@ class Login extends Component {
                                         <div className="row mb-3">
                                             <label htmlFor="inputEmail3" className="col-sm-3 col-form-label">Password</label>
                                             <div className="col-sm">
-                                                <input type="password" className="form-control" id="inputEmail3" 
-                                                 onChange={(event) => this.handleChangePass(event)}/>
+                                                <input type="password" className="form-control" id="inputPass"
+                                                onChange={(event) => this.handleChangePass(event)}/>
                                             </div>
                                         </div>
                                         <div className="row">
