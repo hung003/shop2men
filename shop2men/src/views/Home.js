@@ -3,13 +3,16 @@ import { createBrowserHistory } from 'history';
 import React from "react";
 import { database } from './FireBaseConfig';
 
+
+const history = createBrowserHistory();
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       registered: false // Khởi tạo trạng thái registered với giá trị mặc định là false
     };
-    this.history = createBrowserHistory();
+    
   }
 
   handleClick = () => {
@@ -17,7 +20,8 @@ class Home extends React.Component {
       .then(val => {
         console.log(val, 'val');
         this.setState({ registered: true }, () => {
-          this.history.push('/'); // Sau khi đăng xuất, cập nhật trạng thái và điều hướng đến trang chính
+         history.push('/'); // Sau khi đăng xuất, cập nhật trạng thái và điều hướng đến trang chính
+         window.location.reload();
         });
       })
       .catch(error => {
@@ -28,7 +32,7 @@ class Home extends React.Component {
   render() {
     // Kiểm tra nếu đã đăng xuất, điều hướng đến trang chính
     if (this.state.registered) {
-      this.history.push('/');
+      history.push('/');
       return null; // Trả về null hoặc bất kỳ gì bạn muốn ở đây
     }
 

@@ -1,78 +1,58 @@
-import "bootstrap-icons/font/bootstrap-icons.css"; // Import CSS từ Bootstrap Icons
-import "bootstrap/dist/css/bootstrap.min.css"; // Import CSS từ Bootstrap
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// Login.js
+import { signInWithEmailAndPassword } from 'firebase/auth'; // Sử dụng phương thức đăng nhập từ Firebase
+import { createBrowserHistory } from 'history';
 import React, { Component } from "react";
+import { database } from './FireBaseConfig';
 import './Login.css';
 
+const history = createBrowserHistory();
 class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            pass:""
-        };
+    state = {
+        email: "",
+        password: "",
+        loginError: null
     }
 
-    handleChangeEmail = (event) => {
-        this.setState({
-            email: event.target.value
-        });
+    handleLogin = () => {
+        const email = this.state.email;
+        const password = this.state.password;
+
+        signInWithEmailAndPassword(database, email, password)
+            .then(data => {
+                console.log(data, 'authData');
+                alert("Đăng nhập thành công!");
+                // Không chuyển hướng sau khi đăng nhập thành công
+                history.push('/home');
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error("Lỗi đăng nhập:", error);
+                this.setState({ loginError: "Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập." });
+            });
     }
 
-    handleChangePass = (event) => {
-        this.setState({
-            pass: event.target.value
-        });
-    }
-
-    handleSignin=(event)=>{
-        event.preventDefault()
-        
-    }
     render() {
-        
         return (
             <div>
-                <div className="container h-100">
-                    <div className="row justify-content-center h-100 align-items-center">
-                        <div className="col-sm-8 col-lg-5">
-                            <div className="card bg-primary">
-                                <div className="card-header text-white">
-                                    <h4 className="card-title mb-0"><i className="bi-grid-3x3-gap-fill"></i> Login</h4>
-                                </div>
-                                <div className="card-body bg-white rounded-bottom">
-                                    <form>
-                                        <div className="row mb-3">
-                                            <label htmlFor="inputEmail3" className="col-sm-3 col-form-label">User name</label>
-                                            <div className="col-sm">
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    id="inputEmail3"
-                                                    onChange={(event) => this.handleChangeEmail(event)}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="row mb-3">
-                                            <label htmlFor="inputEmail3" className="col-sm-3 col-form-label">Password</label>
-                                            <div className="col-sm">
-                                                <input type="password" className="form-control" id="inputPass"
-                                                onChange={(event) => this.handleChangePass(event)}/>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="offset-sm-3 col-auto">
-                                                <button type="button" className="btn btn-primary"
-                                                onClick={(event)=>this.handleSignin(event)}
-                                                >Sign in</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <h1>Login</h1>
+                <div>
+                    <label>Email:</label>
+                    <input
+                        type="text"
+                        value={this.state.email}
+                        onChange={(e) => this.setState({ email: e.target.value })}
+                    />
                 </div>
+                <div>
+                    <label>Password:</label>
+                    <input
+                        type="password"
+                        value={this.state.password}
+                        onChange={(e) => this.setState({ password: e.target.value })}
+                    />
+                </div>
+                {this.state.loginError && <div className="error">{this.state.loginError}</div>}
+                <button onClick={() => this.handleLogin()}>Login</button>
             </div>
         );
     }

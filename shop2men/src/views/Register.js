@@ -2,12 +2,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { createBrowserHistory } from 'history'; // Import thư viện history
+import { createBrowserHistory } from 'history';
 import React, { Component } from "react";
 import { database } from './FireBaseConfig';
 import './Login.css';
 
-// Tạo một đối tượng history để sử dụng navigate
 const history = createBrowserHistory();
 
 class Register extends Component {
@@ -26,7 +25,9 @@ class Register extends Component {
                 console.log(data, 'authData');
                 alert("Đăng ký thành công!");
                 this.setState({ registered: true });
-                history.push('/home'); // Sử dụng history để điều hướng đến trang '/home'
+                // Sử dụng history để điều hướng đến trang '/home'
+                history.push('/home');
+                window.location.reload();
             })
             .catch(error => {
                 console.error("Lỗi đăng ký:", error);
@@ -34,9 +35,9 @@ class Register extends Component {
     }
 
     render() {
-        // Nếu đã đăng ký thành công, điều hướng đến trang '/home'
+        // Nếu đã đăng ký thành công, không cần làm gì cả, React sẽ tự cập nhật giao diện
         if (this.state.registered) {
-            return history.push('/home');
+            return null; // hoặc có thể hiển thị thông báo "Bạn đã đăng ký thành công"
         }
 
         return (
