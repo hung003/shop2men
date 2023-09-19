@@ -1,7 +1,8 @@
 import { signOut } from "firebase/auth";
 import { createBrowserHistory } from 'history';
 import React from "react";
-import { database } from './FireBaseConfig';
+import { db } from '../firebase/FireBaseConfig';
+import { Link } from "react-router-dom";
 
 
 const history = createBrowserHistory();
@@ -16,7 +17,7 @@ class Home extends React.Component {
   }
 
   handleClick = () => {
-    signOut(database)
+    signOut(db)
       .then(val => {
         console.log(val, 'val');
         this.setState({ registered: true }, () => {
@@ -40,6 +41,7 @@ class Home extends React.Component {
       <>
         <h1>Hung</h1>
         <button onClick={this.handleClick}>Đăng xuất</button>
+         <p><Link to="/product-menu">Menu Sản Phẩm</Link></p>
       </>
     );
   }

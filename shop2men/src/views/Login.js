@@ -1,11 +1,13 @@
-// Login.js
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Sử dụng phương thức đăng nhập từ Firebase
-import { createBrowserHistory } from 'history';
 import React, { Component } from "react";
-import { database } from './FireBaseConfig';
+import { Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createBrowserHistory } from 'history';
+import {auth} from '../firebase/FireBaseConfig';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css';
 
 const history = createBrowserHistory();
+
 class Login extends Component {
     state = {
         email: "",
@@ -17,11 +19,10 @@ class Login extends Component {
         const email = this.state.email;
         const password = this.state.password;
 
-        signInWithEmailAndPassword(database, email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then(data => {
                 console.log(data, 'authData');
                 alert("Đăng nhập thành công!");
-                // Không chuyển hướng sau khi đăng nhập thành công
                 history.push('/home');
                 window.location.reload();
             })
@@ -33,26 +34,39 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Login</h1>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="text"
-                        value={this.state.email}
-                        onChange={(e) => this.setState({ email: e.target.value })}
-                    />
+            <div className="container h-100">
+                <div className="row h-100 justify-content-center align-items-center">
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-body">
+                                <h1 className="card-title text-center">Login</h1>
+                                <div className="form-group">
+                                    <label>Email:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={this.state.email}
+                                        onChange={(e) => this.setState({ email: e.target.value })}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Password:</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        value={this.state.password}
+                                        onChange={(e) => this.setState({ password: e.target.value })}
+                                    />
+                                </div>
+                                {this.state.loginError && <div className="alert alert-danger">{this.state.loginError}</div>}
+                                <div className="text-center">
+                                    <button className="btn btn-primary" onClick={() => this.handleLogin()}>Login</button>
+                                </div>
+                                <p className="mt-3 text-center">Nếu bạn chưa có tài khoản, hãy <Link to="/">đăng ký</Link>.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={this.state.password}
-                        onChange={(e) => this.setState({ password: e.target.value })}
-                    />
-                </div>
-                {this.state.loginError && <div className="error">{this.state.loginError}</div>}
-                <button onClick={() => this.handleLogin()}>Login</button>
             </div>
         );
     }
