@@ -1,13 +1,12 @@
-import React, { Component } from "react";
-import { db } from "../firebase/FireBaseConfig";
 import {
   collection,
-  getDocs,
-  addDoc,
   deleteDoc,
   doc,
-  setDoc,
+  getDocs,
+  setDoc
 } from "firebase/firestore";
+import React, { Component } from "react";
+import { db } from "../firebase/FireBaseConfig";
 import "./ProductMenu.css";
 
 class ProductMenu extends Component {
@@ -49,14 +48,17 @@ class ProductMenu extends Component {
   handleAddProduct = async () => {
     try {
       const { id, name, price } = this.state.newProduct;
-      
-      const productRef = collection(db, "products");
-      await addDoc(productRef, {
-        id,
+
+      // Tạo một tài liệu với ID tùy chỉnh
+      const productDoc = doc(db, "products", id);
+
+      // Thêm dữ liệu vào tài liệu đã tạo
+      await setDoc(productDoc, {
         name,
         price,
       });
 
+      // Cập nhật danh sách sản phẩm sau khi thêm
       this.setState({
         newProduct: {
           id: "",
@@ -64,7 +66,6 @@ class ProductMenu extends Component {
           price: 0,
         },
         isModalOpen: false,
-        
       });
 
       await this.fetchProducts();
@@ -82,7 +83,7 @@ class ProductMenu extends Component {
         isEditModalOpen: true,
         editProductId: productId,
         newProduct: {
-          id: productToEdit.id,
+          id: productToEdit.id, // Giữ nguyên ID của sản phẩm
           name: productToEdit.name,
           price: productToEdit.price,
         },
@@ -104,23 +105,22 @@ class ProductMenu extends Component {
 
   handleSaveEditedProduct = async () => {
     try {
-      const { id, name, price } = this.state.newProduct;
+      const { name, price } = this.state.newProduct;
 
       const productToEditIndex = this.state.products.findIndex(
-        (product) => product.id === this.state.id
+        (product) => product.id === this.state.editProductId
       );
 
       const updatedProducts = [...this.state.products];
 
       updatedProducts[productToEditIndex] = {
-        id,
+        id: this.state.editProductId, // Giữ nguyên ID của sản phẩm
         name,
         price,
       };
 
       const productDoc = doc(db, "products", this.state.editProductId);
       await setDoc(productDoc, {
-        id,
         name,
         price,
       });
@@ -158,7 +158,7 @@ class ProductMenu extends Component {
               <tr key={product.id}>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
-                <td>${product.price}</td>
+                <td>{product.price}vnd</td>
                 <td>
                   <button
                     className="btn btn-primary mr-2"

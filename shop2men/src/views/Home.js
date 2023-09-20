@@ -1,8 +1,8 @@
 import { signOut } from "firebase/auth";
 import { createBrowserHistory } from 'history';
 import React from "react";
-import { db } from '../firebase/FireBaseConfig';
 import { Link } from "react-router-dom";
+import { db } from '../firebase/FireBaseConfig';
 
 
 const history = createBrowserHistory();
