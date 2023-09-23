@@ -1,5 +1,5 @@
 import React from "react";
-import "./chi-tiet.css"; // Import stylesheet
+import "./detail.css"; // Import stylesheet
 
 function detail() {
   return (

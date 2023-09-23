@@ -1,9 +1,9 @@
 import React from "react";
+import "./home.css";
 
 function Home() {
   return (
     <div id="wrapper">
-      {/* Header */}
       <div id="header">
         <a href="index.html" className="logo">
           <img src="assets/logo.png" alt="" />
@@ -32,7 +32,6 @@ function Home() {
         </div>
       </div>
 
-      {/* Carousel */}
       <div
         id="carouselExampleControls"
         className="carousel slide"

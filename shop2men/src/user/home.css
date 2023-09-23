@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,200;1,400;1,500&display=swap');
+
+/* Thiết lập CSS chung */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Thiết lập header */
+#header {
+    width: 100%;
+    padding: 20px 30px; /* Điều chỉnh khoảng cách giữa các phần tử bên trong header */
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Điều chỉnh menu */
+#menu {
+    list-style: none;
+    display: flex;
+}
+
+.menu-list .item {
+    margin-right: 20px; /* Điều chỉnh khoảng cách giữa các mục menu */
+}
+
+.menu-list .item:last-child {
+    margin-right: 0; /* Loại bỏ khoảng cách ở cuối cùng */
+}
+
+.menu-list .item a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.menu-list .item a:hover {
+    color: orange; /* Màu khi di chuột qua */
+}
+
+/* Điều chỉnh hình ảnh biểu tượng */
+#actions .item {
+    margin-left: 15px; /* Điều chỉnh khoảng cách giữa các biểu tượng */
+}
+
+
+#wp-products {
+    text-align: center;
+    margin-top: 5%;
+}
+
+#list-products {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.item {
+    margin: 5px;
+    text-align: center;
+}
+
+.item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+#list-products .item .name {
+    text-align: center;
+    color:#100f0f;
+    font-weight: bold;
+}
+
+#list-products .item .desc {
+    text-align: center;
+    color:#626a67;
+}
+
+#list-products .item .price {
+    text-align: center;
+    color:#f42424;
+    font-weight: bold;
+    margin-top:10px;
+}
+
+
+
+.list-page {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20;
+    margin-bottom: 10px;
+}
+
+.item {
+    margin: 0 5px;
+}
+
+.item a {
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.item a:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+
+#saleoff {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 322px;
+}
+
+#saleoff .box-left,
+#saleoff .box-right {
+    width: 50%;
+    min-height: 322px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#saleoff .box-left {
+    background: #3e413e;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#saleoff .box-left h1 {
+    margin: 0;
+}
+
+#saleoff .box-left span:nth-child(1) {
+    color: #fff;
+    font-size: 24px;
+}
+
+#saleoff .box-left span:nth-child(2) {
+    color: orange;
+    font-size: 72px;
+}
+
+#saleoff .box-right {
+    background-image: url("images/sale.jpg");
+    background-size: cover;
+}
+
+
+#comment {
+    width: 1012px;
+    height: 478px;
+    margin:0px auto;
+    margin-top:184px;
+    margin-bottom: 50px;
+}
+
+#comment h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size:32px;
+    color:#626a67;
+}
+
+
+#comment-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1000px;
+    height: 400px;
+    list-style: none;
+    overflow: hidden;
+}
+
+#list-comment {
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    transition:0.5s;
+}
+
+#list-comment .item {
+    width: 100%;
+    height: 100%;
+    background:#362f2f;
+    border-radius: 20px;
+    padding-top:50px;
+}
+
+#list-comment .item .avatar {
+    text-align: center;
+    margin-top:13px;
+}
+
+#list-comment .item .stars {
+    display: flex;
+    margin:0px auto;
+    width: 50%;
+    margin-top:32px;
+    justify-content: center;
+    align-items: center;
+}
+
+#list-comment .item .name {
+    text-align: center;
+    font-weight: bold;
+    color:#fff;
+}
+
+#list-comment .item .text {
+    padding:20px 50px;
+    color:#fff;
+   
+}
+
+#footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.box {
+    flex-basis: 30%; /* Điều chỉnh kích thước cột theo ý muốn */
+    margin-bottom: 20px;
+}
+
+.logo img {
+    max-width: 100px; /* Điều chỉnh kích thước logo theo ý muốn */
+}
+
+.quick-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.item1 {
+    margin: 10px 0;
+}
+
+.item1 a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.item1 a:hover {
+    color: orange;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Định dạng nút Mua */
+.add-to-cart {
+    background-color: rgb(199, 199, 199); /* Màu nền */
+    color: #fff; /* Màu chữ */
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px; /* Góc bo tròn */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+}
+
+/* Hiệu ứng khi rà chuột vào nút Mua */
+.add-to-cart:hover {
+    background-color: #0056b3; /* Màu nền thay đổi khi hover */
+}
+
+
