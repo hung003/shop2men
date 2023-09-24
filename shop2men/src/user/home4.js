@@ -5,29 +5,29 @@ function Home() {
   return (
     <div id="wrapper">
       <div id="header">
-        <a href="index.html" className="logo">
-          <img src="assets/logo.png" alt="" />
+        <a href="/" className="logo">
+          <img src="/" alt="" />
         </a>
         <div id="menu">
           <div className="item">
-            <a href="index.html">Trang chủ</a>
+            <a href="/">Trang chủ</a>
           </div>
           <div className="item">
-            <a href="trang2.html">Sản phẩm</a>
+            <a href="/">Sản phẩm</a>
           </div>
           <div className="item">
-            <a href="">Blog</a>
+            <a href="/">Blog</a>
           </div>
           <div className="item">
-            <a href="">Liên hệ</a>
+            <a href="/">Liên hệ</a>
           </div>
         </div>
         <div id="actions">
           <div className="item">
-            <img src="assets/user.png" alt="" />
+            <img src="/" alt="" />
           </div>
           <div className="item">
-            <img src="assets/cart.png" alt="" />
+            <img src="/" alt="" />
           </div>
         </div>
       </div>
@@ -39,17 +39,17 @@ function Home() {
       >
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src="images/banner.jpg" className="d-block w-100" alt="..." />
+            <img src="/" className="d-block w-100" alt="..." />
           </div>
           <div className="carousel-item">
             <img
-              src="images/BANNER-SALE-OFF.jpg"
+              src="/"
               className="d-block w-100"
               alt="..."
             />
           </div>
           <div className="carousel-item">
-            <img src="images/banner3.jpg" className="d-block w-100" alt="..." />
+            <img src="/" className="d-block w-100" alt="..." />
           </div>
         </div>
         <button
@@ -86,7 +86,7 @@ function Home() {
           {/* Product 1 */}
           <li className="item">
             <img
-              src="images/Quần SANDROxWRANGLER.webp"
+              src="/"
               width="256px"
               height="174px"
               alt=""
@@ -102,16 +102,16 @@ function Home() {
         {/* Pagination */}
         <div className="list-page">
           <div className="item">
-            <a href="index.html">1</a>
+            <a href="/">1</a>
           </div>
           <div className="item">
-            <a href="trang2.html">2</a>
+            <a href="/">2</a>
           </div>
           <div className="item">
-            <a href="">3</a>
+            <a href="/">3</a>
           </div>
           <div className="item">
-            <a href="">4</a>
+            <a href="/">4</a>
           </div>
         </div>
       </div>
@@ -135,15 +135,15 @@ function Home() {
         <h2>NHẬN XÉT CỦA KHÁCH HÀNG</h2>
         <div id="comment-body">
           <div className="prev">
-            <a href="#">
-              <img src="assets/prev.png" alt="" />
+            <a href="/">
+              <img src="/" alt="" />
             </a>
           </div>
           <ul id="list-comment">
             {/* Comment 1 */}
             <li className="item">
               <div className="avatar">
-                <img src="assets/avatar_1.png" alt="" />
+                <img src="/" alt="" />
               </div>
               <div className="stars">
                 <span>
@@ -164,8 +164,8 @@ function Home() {
           </ul>
           {/* End of comment list */}
           <div className="next">
-            <a href="#">
-              <img src="assets/next.png" alt="" />
+            <a href="/">
+              <img src="/" alt="" />
             </a>
           </div>
         </div>
@@ -175,7 +175,7 @@ function Home() {
       <div id="footer">
         <div className="box">
           <div className="logo">
-            <img src="assets/logo.png" alt="" />
+            <img src="/" alt="" />
           </div>
           <p>Cung cấp sản phẩm với chất lượng an toàn cho quý khách</p>
         </div>
@@ -189,10 +189,10 @@ function Home() {
               <a href="trang2.html">Sản phẩm</a>
             </div>
             <div className="item1">
-              <a href="">Blog</a>
+              <a href="/">Blog</a>
             </div>
             <div className="item1">
-              <a href="">Liên hệ</a>
+              <a href="/">Liên hệ</a>
             </div>
           </ul>
         </div>

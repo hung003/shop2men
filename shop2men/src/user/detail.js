@@ -15,7 +15,7 @@ function detail() {
         <div id="wrapper">
           <div id="header">
             <a href="/" className="logo">
-              <img src="assets/logo.png" alt="" />
+              <img src="/" alt="" />
             </a>
             <div id="menu">
               <div className="item">
@@ -33,10 +33,10 @@ function detail() {
             </div>
             <div id="actions">
               <div className="item">
-                <img src="assets/user.png" alt="" />
+                <img src="/assets/user.png" alt="" />
               </div>
               <div className="item">
-                <img src="assets/cart.png" alt="" />
+                <img src="/" alt="" />
               </div>
             </div>
           </div>
@@ -48,14 +48,14 @@ function detail() {
                   <div className="product-image">
                     <div className="product-image-main">
                       <img
-                        src="images/Đầm ngắn chấm bi.webp"
+                        src="/"
                         alt=""
                         id="product-main-image"
                       />
                     </div>
                     <div className="product-image-slider">
                       <img
-                        src="images/Đầm maxi thun gân.webp"
+                        src="/"
                         alt=""
                         className="image-list"
                       />
@@ -249,7 +249,7 @@ function detail() {
                   <a href="/">Blog</a>
                 </div>
                 <div className="item1">
-                  <a href="">Liên hệ</a>
+                  <a href="/">Liên hệ</a>
                 </div>
               </ul>
             </div>

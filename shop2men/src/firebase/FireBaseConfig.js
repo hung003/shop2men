@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from 'firebase/storage';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyB037K2wit25NJ-zgwnv4Af06KiLkPHNHY",
@@ -12,6 +14,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app);
 
 export const  auth= getAuth(app); // Sử dụng getAuth để tạo đối tượng Auth
 export const db = getFirestore(app); // Sử dụng getFirestore để tạo đối tượng Firestore
+

@@ -5,6 +5,12 @@ import {
   getDocs,
   setDoc
 } from "firebase/firestore";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes
+} from "firebase/storage";
 import React, { Component } from "react";
 import { db } from "../firebase/FireBaseConfig";
 import "./ProductMenu.css";
@@ -16,10 +22,15 @@ class ProductMenu extends Component {
       id: "",
       name: "",
       price: 0,
+      image: "",
+      size: "",
+      productDescription: "",
+      color: "", // Thêm trường color
     },
     isModalOpen: false,
     isEditModalOpen: false,
     editProductId: "",
+    selectedImage: null,
   };
 
   async componentDidMount() {
@@ -45,26 +56,75 @@ class ProductMenu extends Component {
     }
   };
 
+  handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Kiểm tra kiểu MIME của tệp tin
+      if (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif") {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          // Tạo một blob mới với kiểu MIME image/jpeg
+          const blob = new Blob([event.target.result], { type: "image/jpeg" });
+          
+          // Sử dụng blob này để tải lên Firebase Storage
+          const imageUrl = await this.uploadImageToFirebaseStorage(blob);
+  
+          this.setState({
+            selectedImage: event.target.result,
+            newProduct: {
+              ...this.state.newProduct,
+              image: imageUrl,
+            },
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        // Thông báo lỗi khi kiểu MIME không hợp lệ
+        console.error("Kiểu MIME không hợp lệ. Chỉ hỗ trợ image/jpeg, image/png và image/gif.");
+      }
+    }
+  };
+
+  uploadImageToFirebaseStorage = async (file) => {
+    const storage = getStorage();
+    const storageRef = ref(storage, `product_images/${file.name}`);
+    await uploadBytes(storageRef, file);
+    const imageUrl = await getDownloadURL(storageRef);
+    return imageUrl;
+  };
+
   handleAddProduct = async () => {
     try {
-      const { id, name, price } = this.state.newProduct;
+      const { id, name, price, size, productDescription, image, color } = this.state.newProduct;
 
-      // Tạo một tài liệu với ID tùy chỉnh
       const productDoc = doc(db, "products", id);
 
-      // Thêm dữ liệu vào tài liệu đã tạo
+      let imageUrl = image;
+
+      if (this.state.selectedImage) {
+        imageUrl = await this.uploadImageToFirebaseStorage(this.state.selectedImage);
+      }
+
       await setDoc(productDoc, {
         name,
         price,
+        image: imageUrl,
+        size,
+        productDescription,
+        color, // Thêm trường color vào dữ liệu
       });
 
-      // Cập nhật danh sách sản phẩm sau khi thêm
       this.setState({
         newProduct: {
           id: "",
           name: "",
           price: 0,
+          image: "",
+          size: "",
+          productDescription: "",
+          color: "", // Đặt lại giá trị trường color
         },
+        selectedImage: null,
         isModalOpen: false,
       });
 
@@ -74,19 +134,13 @@ class ProductMenu extends Component {
     }
   };
 
-  handleEditModalOpen = async (productId) => {
-    const productToEdit = this.state.products.find(
-      (product) => product.id === productId
-    );
+  handleEditModalOpen = (productId) => {
+    const productToEdit = this.state.products.find((product) => product.id === productId);
     if (productToEdit) {
       this.setState({
         isEditModalOpen: true,
         editProductId: productId,
-        newProduct: {
-          id: productToEdit.id, // Giữ nguyên ID của sản phẩm
-          name: productToEdit.name,
-          price: productToEdit.price,
-        },
+        newProduct: { ...productToEdit },
       });
     }
   };
@@ -99,42 +153,51 @@ class ProductMenu extends Component {
         id: "",
         name: "",
         price: 0,
+        image: "",
+        size: "",
+        productDescription: "",
+        color: "", // Đặt lại giá trị trường color
       },
     });
   };
 
   handleSaveEditedProduct = async () => {
     try {
-      const { name, price } = this.state.newProduct;
+      const { id, name, price, size, productDescription, image, color } = this.state.newProduct;
 
-      const productToEditIndex = this.state.products.findIndex(
-        (product) => product.id === this.state.editProductId
-      );
+      const productDoc = doc(db, "products", id);
 
-      const updatedProducts = [...this.state.products];
+      let imageUrl = image;
 
-      updatedProducts[productToEditIndex] = {
-        id: this.state.editProductId, // Giữ nguyên ID của sản phẩm
-        name,
-        price,
-      };
+      if (this.state.selectedImage) {
+        imageUrl = await this.uploadImageToFirebaseStorage(this.state.selectedImage);
+      }
 
-      const productDoc = doc(db, "products", this.state.editProductId);
       await setDoc(productDoc, {
         name,
         price,
+        image: imageUrl,
+        size,
+        productDescription,
+        color, // Thêm trường color vào dữ liệu
       });
 
       this.setState({
-        products: updatedProducts,
-        isEditModalOpen: false,
-        editProductId: "",
         newProduct: {
           id: "",
           name: "",
           price: 0,
+          image: "",
+          size: "",
+          productDescription: "",
+          color: "", // Đặt lại giá trị trường color
         },
+        selectedImage: null,
+        isEditModalOpen: false,
+        editProductId: "",
       });
+
+      await this.fetchProducts();
     } catch (error) {
       console.error("Lỗi chỉnh sửa sản phẩm:", error);
     }
@@ -150,6 +213,10 @@ class ProductMenu extends Component {
               <th>ID</th>
               <th>Tên Sản Phẩm</th>
               <th>Giá</th>
+              <th>Ảnh</th>
+              <th>Size</th>
+              <th>Mô tả sản phẩm</th>
+              <th>Màu sắc</th> {/* Thêm cột màu sắc */}
               <th>Thao Tác</th>
             </tr>
           </thead>
@@ -160,11 +227,19 @@ class ProductMenu extends Component {
                 <td>{product.name}</td>
                 <td>{product.price}vnd</td>
                 <td>
+                  <img
+                    src={product.image}
+                    alt="Product"
+                    style={{ maxWidth: "80px" }}
+                  />
+                </td>
+                <td>{product.size}</td>
+                <td>{product.productDescription}</td>
+                <td>{product.color}</td> {/* Hiển thị màu sắc */}
+                <td>
                   <button
                     className="btn btn-primary mr-2"
-                    onClick={() =>
-                      this.handleEditModalOpen(product.id)
-                    }
+                    onClick={() => this.handleEditModalOpen(product.id)}
                   >
                     Sửa
                   </button>
@@ -234,6 +309,78 @@ class ProductMenu extends Component {
                     })
                   }
                 />
+                <input
+                  type="text"
+                  placeholder="Đường dẫn ảnh"
+                  className="form-control"
+                  value={this.state.newProduct.image}
+                  onChange={(e) =>
+                    this.setState({
+                      newProduct: {
+                        ...this.state.newProduct,
+                        image: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Kích thước sản phẩm"
+                  className="form-control"
+                  value={this.state.newProduct.size}
+                  onChange={(e) =>
+                    this.setState({
+                      newProduct: {
+                        ...this.state.newProduct,
+                        size: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Mô tả sản phẩm"
+                  className="form-control"
+                  value={this.state.newProduct.productDescription}
+                  onChange={(e) =>
+                    this.setState({
+                      newProduct: {
+                        ...this.state.newProduct,
+                        productDescription: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Màu sắc sản phẩm" // Thêm trường màu sắc
+                  className="form-control"
+                  value={this.state.newProduct.color}
+                  onChange={(e) =>
+                    this.setState({
+                      newProduct: {
+                        ...this.state.newProduct,
+                        color: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="form-control"
+                  onChange={this.handleImageChange}
+                />
+
+                {this.state.selectedImage && (
+                  <div className="selected-image">
+                    <img
+                      src={this.state.selectedImage}
+                      alt="Selected"
+                      style={{ maxWidth: "100px" }}
+                    />
+                  </div>
+                )}
                 <button
                   className="btn btn-success"
                   onClick={() => this.handleAddProduct()}
@@ -298,6 +445,78 @@ class ProductMenu extends Component {
                     })
                   }
                 />
+                <input
+                  type="text"
+                  placeholder="Đường dẫn ảnh"
+                  className="form-control"
+                  value={this.state.newProduct.image}
+                  onChange={(e) =>
+                    this.setState({
+                      newProduct: {
+                        ...this.state.newProduct,
+                        image: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Kích thước sản phẩm"
+                  className="form-control"
+                  value={this.state.newProduct.size}
+                  onChange={(e) =>
+                    this.setState({
+                      newProduct: {
+                        ...this.state.newProduct,
+                        size: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Mô tả sản phẩm"
+                  className="form-control"
+                  value={this.state.newProduct.productDescription}
+                  onChange={(e) =>
+                    this.setState({
+                      newProduct: {
+                        ...this.state.newProduct,
+                        productDescription: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Màu sắc sản phẩm" // Thêm trường màu sắc
+                  className="form-control"
+                  value={this.state.newProduct.color}
+                  onChange={(e) =>
+                    this.setState({
+                      newProduct: {
+                        ...this.state.newProduct,
+                        color: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="form-control"
+                  onChange={this.handleImageChange}
+                />
+
+                {this.state.selectedImage && (
+                  <div className="selected-image">
+                    <img
+                      src={this.state.selectedImage}
+                      alt="Selected"
+                      style={{ maxWidth: "100px" }}
+                    />
+                  </div>
+                )}
                 <button
                   className="btn btn-success"
                   onClick={() => this.handleSaveEditedProduct()}
