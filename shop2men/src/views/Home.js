@@ -1,6 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase/FireBaseConfig"; // Thay đổi đường dẫn đến file cấu hình Firebase của bạn
+import { Link } from "react-router-dom";
+import { db } from "../firebase/FireBaseConfig";
 import "./home.css";
 
 function Home() {
@@ -19,184 +20,229 @@ function Home() {
     };
     fetchProducts();
   }, []);
-
   return (
     <div id="wrapper">
-      {/* Header */}
-      <div id="header">
-        <a href="/" className="logo">
-          <img src="/" alt="" />
-        </a>
-        <div id="menu">
-          <div className="item">
-            <a href="/">Trang chủ</a>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container">
+          <a className="navbar-brand" href="/">
+           <h1>Shop2men</h1>
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <a className="nav-link" href="/">
+                  Trang chủ
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  Sản phẩm
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  Blog
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  Liên hệ
+                </a>
+              </li>
+            </ul>
           </div>
-          <div className="item">
-            <a href="/">Sản phẩm</a>
-          </div>
-          <div className="item">
-            <a href="/">Blog</a>
-          </div>
-          <div className="item">
-            <a href="/">Liên hệ</a>
+          <div id="actions" className="float-end">
+            <div className="item">
+             <button>user</button>
+            </div>
+            <div className="item">
+             <button>cart</button>
+            </div>
           </div>
         </div>
-        <div id="actions">
-          <div className="item">
-            <img src="/" alt="" />
-          </div>
-          <div className="item">
-            <img src="/" alt="" />
-          </div>
-        </div>
-      </div>
+      </nav>
 
-      {/* Carousel */}
-      <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img src="../assets/images/img-1.jpg" className="d-block w-100" alt="..." />
-          </div>
-          <div className="carousel-item">
-            <img src="../assets/images/img-3.jpg" className="d-block w-100" alt="..." />
-          </div>
-          <div className="carousel-item">
-            <img src="../assets/images/img-4.jpg" className="d-block w-100" alt="..." />
-          </div>
-        </div>
-        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
-
-      {/* Products */}
-      <div id="wp-products">
-        <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
-        {/* Product List */}
+      <div id="banner" className="container-fluid">
         <div className="row">
-          {products.map((product) => (
-            <div className="col-md-3 mb-4" key={product.id}>
-              <div className="card">
-                <img src={product.image} className="card-img-top" alt={product.name} />
-                <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
-                  <p className="card-text">{product.price} ₫</p>
-                  <button className="btn btn-primary">MUA</button>
+          <div className="col-lg-6">
+            <h2>
+              <span>THỨC ĂN</span>
+              <br />
+              <span>THƯỢNG HẠNG</span>
+            </h2>
+            <p>
+              Chuyên cung cấp các món ăn đảm bảo dinh dưỡng hợp vệ sinh đến
+              người dùng, phục vụ người dùng 1 cách hoàn hảo nhất
+            </p>
+            <button className="btn btn-primary">Mua ngay</button>
+          </div>
+          <div className="col-lg-6">
+            <img src="./assets/img_1.png" alt="" className="img-fluid" />
+            <img src="./assets/img_2.png" alt="" className="img-fluid" />
+            <img src="./assets/img_3.png" alt="" className="img-fluid" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12 text-center">
+            <a href="#wp-products">
+              <img src="assets/to_bottom.png" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="wp-products">
+          <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
+          <div className="row">
+            {products.map((product) => (
+              <div className="col-md-3 mb-4" key={product.id}>
+                <div className="card">
+                  <Link to={`/detail/${product.id}`}>
+                    <img src={product.image} className="card-img-top" alt={product.name} />
+                  </Link>
+                  <div className="card-body">
+                    <h5 className="card-title">{product.name}</h5>
+                    <p className="card-text">{product.price} ₫</p>
+                    <button className="btn btn-primary">MUA</button>
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
+          <div className="list-page">
+            <div className="item">
+              <a href="/">1</a>
             </div>
-          ))}
-        </div>
-        {/* End of product list */}
-        
-        {/* Pagination */}
-        <div className="list-page">
-          <div className="item">
-            <a href="/">1</a>
-          </div>
-          <div className="item">
-            <a href="/">2</a>
-          </div>
-          <div className="item">
-            <a href="/">3</a>
-          </div>
-          <div className="item">
-            <a href="/">4</a>
+            <div className="item">
+              <a href="/">2</a>
+            </div>
+            <div className="item">
+              <a href="/">3</a>
+            </div>
+            <div className="item">
+              <a href="/">4</a>
+            </div>
           </div>
         </div>
-      </div>
-      
-      {/* Sale Off */}
-      <div id="saleoff">
-        <div className="box-left">
-          <h1>
-            <span>GIẢM GIÁ LÊN ĐẾN</span>
-            <span>45%</span>
-          </h1>
-          <a style={{ textDecoration: "none" }} href="trang2.html">
-            Xem Ngay
-          </a>
+
+      <div id="saleoff" className="container">
+        <div className="row">
+          <div className="col-lg-6">
+            <h1>
+              <span>GIẢM GIÁ LÊN ĐẾN</span>
+              <span>45%</span>
+            </h1>
+          </div>
+          <div className="col-lg-6">
+            {/* Để trống hoặc thêm nội dung bạn muốn */}
+          </div>
         </div>
-        <div className="box-right"></div>
       </div>
 
-      {/* Comments */}
-      <div id="comment">
+      <div id="comment" className="container">
         <h2>NHẬN XÉT CỦA KHÁCH HÀNG</h2>
         <div id="comment-body">
           <div className="prev">
             <a href="/">
-              <img src="/" alt="" />
+              <img src="assets/prev.png" alt="" />
             </a>
           </div>
           <ul id="list-comment">
-            {/* Comment 1 */}
             <li className="item">
               <div className="avatar">
-                <img src="/" alt="" />
+                <img src="assets/avatar_1.png" alt="" />
               </div>
               <div className="stars">
                 <span>
                   <img src="assets/star.png" alt="" />
                 </span>
-                {/* Repeat the star image for the rating */}
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
               </div>
               <div className="name">Nguyễn Đình Vũ</div>
               <div className="text">
                 <p>
-                  Không biết mọi người sao chứ mình thấy những sản phẩm được bày
-                  bán ở shop này vô cùng chất lượng và giá cả lại hợp lý lắm
-                  luôn á.
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book.
                 </p>
               </div>
             </li>
-            {/* Repeat the above structure for other comments */}
+            {/* Thêm các bình luận khác ở đây */}
           </ul>
-          {/* End of comment list */}
           <div className="next">
             <a href="/">
-              <img src="/" alt="" />
+              <img src="assets/next.png" alt="" />
             </a>
           </div>
         </div>
       </div>
 
-      {/* Footer */}
       <div id="footer">
-        <div className="box">
-          <div className="logo">
-            <img src="/" alt="" />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <div className="logo">
+                <img src="assets/logo.png" alt="" />
+              </div>
+              <p>Cung cấp sản phẩm với chất lượng an toàn cho quý khách</p>
+            </div>
+            <div className="col-md-4">
+              <h3>NỘI DUNG</h3>
+              <ul className="quick-menu">
+                <li className="item">
+                  <a href="/">Trang chủ</a>
+                </li>
+                <li className="item">
+                  <a href="/">Sản phẩm</a>
+                </li>
+                <li className="item">
+                  <a href="/">Blog</a>
+                </li>
+                <li className="item">
+                  <a href="/">Liên hệ</a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-md-4">
+              <h3>LIÊN HỆ</h3>
+              <form action="">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Địa chỉ email"
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Nhận tin
+                </button>
+              </form>
+            </div>
           </div>
-          <p>Cung cấp sản phẩm với chất lượng an toàn cho quý khách</p>
-        </div>
-        <div className="box">
-          <h3>NỘI DUNG</h3>
-          <ul className="quick-menu">
-            <div className="item1">
-              <a href="index.html">Trang chủ</a>
-            </div>
-            <div className="item1">
-              <a href="trang2.html">Sản phẩm</a>
-            </div>
-            <div className="item1">
-              <a href="/">Blog</a>
-            </div>
-            <div className="item1">
-              <a href="/">Liên hệ</a>
-            </div>
-          </ul>
-        </div>
-        <div className="box">
-          <h3>LIÊN HỆ</h3>
-          <form action="">
-            <input type="text" placeholder="Địa chỉ email" />
-            <button>Nhận tin</button>
-          </form>
         </div>
       </div>
     </div>
