@@ -23,6 +23,10 @@ class Login extends Component {
             .then(data => {
                 console.log(data, 'authData');
                 alert("Đăng nhập thành công!");
+
+                // Lưu thông tin đăng nhập vào localStorage
+                localStorage.setItem('loggedInUser', JSON.stringify(data.user));
+                
                 history.push('/home');
                 window.location.reload();
             })

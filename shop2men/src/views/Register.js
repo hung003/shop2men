@@ -1,90 +1,68 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { createBrowserHistory } from 'history';
-import { auth } from '../firebase/FireBaseConfig';
+import {auth} from '../firebase/FireBaseConfig';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Login.css';
 
 const history = createBrowserHistory();
 
-class Register extends Component {
+class Login extends Component {
     state = {
         email: "",
         password: "",
-        registered: false
+        loginError: null
     }
 
-    handleSignin = () => {
+    handleLogin = () => {
         const email = this.state.email;
         const password = this.state.password;
 
-        createUserWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then(data => {
                 console.log(data, 'authData');
-                alert("Đăng ký thành công!");
-                this.setState({ registered: true });
+                alert("Đăng nhập thành công!");
                 history.push('/home');
                 window.location.reload();
             })
             .catch(error => {
-                console.error("Lỗi đăng ký:", error);
+                console.error("Lỗi đăng nhập:", error);
+                this.setState({ loginError: "Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập." });
             });
     }
 
     render() {
-        if (this.state.registered) {
-            return null;
-        }
-
         return (
             <div className="container h-100">
-                <div className="row justify-content-center h-100 align-items-center">
-                    <div className="col-sm-8 col-lg-5">
-                        <div className="card bg-primary">
-                            <div className="card-header text-white">
-                                <h4 className="card-title mb-0"><i className="bi-grid-3x3-gap-fill"></i> Register</h4>
-                            </div>
-                            <div className="card-body bg-white rounded-bottom">
-                                <form>
-                                    <div className="row mb-3">
-                                        <label htmlFor="inputEmail3" className="col-sm-3 col-form-label">User Email</label>
-                                        <div className="col-sm">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="inputEmail3"
-                                                name="email"
-                                                onChange={(e) => this.setState({ email: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                        <label htmlFor="inputPassword3" className="col-sm-3 col-form-label">Password</label>
-                                        <div className="col-sm">
-                                            <input
-                                                type="password"
-                                                className="form-control"
-                                                id="inputPassword3"
-                                                name="password"
-                                                onChange={(e) => this.setState({ password: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="offset-sm-3 col-auto">
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary"
-                                                onClick={() => this.handleSignin()}
-                                            >
-                                                Register
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <p className="mt-3">Nếu đã có tài khoản, hãy <Link to="/login">đăng nhập</Link>.</p>
-                                </form>
+                <div className="row h-100 justify-content-center align-items-center">
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-body">
+                                <h1 className="card-title text-center">Login</h1>
+                                <div className="form-group">
+                                    <label>Email:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={this.state.email}
+                                        onChange={(e) => this.setState({ email: e.target.value })}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Password:</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        value={this.state.password}
+                                        onChange={(e) => this.setState({ password: e.target.value })}
+                                    />
+                                </div>
+                                {this.state.loginError && <div className="alert alert-danger">{this.state.loginError}</div>}
+                                <div className="text-center">
+                                    <button className="btn btn-primary" onClick={() => this.handleLogin()}>Login</button>
+                                </div>
+                                <p className="mt-3 text-center">Nếu bạn chưa có tài khoản, hãy <Link to="/">đăng ký</Link>.</p>
                             </div>
                         </div>
                     </div>
@@ -94,4 +72,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default Login;

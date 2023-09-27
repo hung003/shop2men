@@ -1,11 +1,24 @@
-import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  arrayUnion,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../firebase/FireBaseConfig";
 import "./home.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function Home() {
   const [products, setProducts] = useState([]);
+  const [cartItemCount, setCartItemCount] = useState(0);
+  const [userEmail, setUserEmail] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,14 +32,86 @@ function Home() {
       }
     };
     fetchProducts();
+
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user.email);
+      } else {
+        setUserEmail("");
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
+
+  const addToCart = async (product) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      try {
+        const userId = user.uid;
+        const userDocRef = doc(db, "users", userId);
+        const userCartRef = collection(userDocRef, "carts");
+
+        // Kiểm tra xem sản phẩm đã có trong giỏ hàng của người dùng chưa
+        const docSnapshot = await getDoc(userDocRef);
+        if (docSnapshot.exists()) {
+          const userData = docSnapshot.data();
+          const userCart = userData.cart || [];
+
+          const existingProductIndex = userCart.findIndex((item) => item.id === product.id);
+
+          if (existingProductIndex !== -1) {
+            // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
+            userCart[existingProductIndex].quantity += 1;
+          } else {
+            // Nếu sản phẩm chưa có trong giỏ hàng, thêm sản phẩm vào giỏ hàng
+            product.quantity = 1;
+            userCart.push(product);
+          }
+
+          // Cập nhật giỏ hàng của người dùng trong Firestore
+          await updateDoc(userDocRef, {
+            cart: userCart,
+          });
+
+          // Tính tổng số lượng sản phẩm trong giỏ hàng
+          let itemCount = 0;
+          userCart.forEach((item) => {
+            itemCount += item.quantity;
+          });
+
+          setCartItemCount(itemCount);
+        }
+      } catch (error) {
+        console.error("Lỗi khi thêm sản phẩm vào giỏ hàng:", error);
+      }
+    } else {
+      // Xử lý khi người dùng chưa đăng nhập
+      // Ví dụ: hiển thị form đăng nhập hoặc yêu cầu đăng nhập
+    }
+  };
+
+  const handleUserClick = () => {
+    if (userEmail) {
+      navigate("/user");
+    } else {
+      // Xử lý khi người dùng chưa đăng nhập
+      // Ví dụ: hiển thị form đăng nhập hoặc yêu cầu đăng nhập
+    }
+  };
+
   return (
     <div id="wrapper">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <a className="navbar-brand" href="/">
-           <h1>Shop2men</h1>
-          </a>
+          <Link className="navbar-brand" to="/">
+            <h1>Shop2men</h1>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -41,33 +126,43 @@ function Home() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item active">
-                <a className="nav-link" href="/">
+                <Link className="nav-link" to="/">
                   Trang chủ
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                <Link className="nav-link" to="/">
                   Sản phẩm
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                <Link className="nav-link" to="/">
                   Blog
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                <Link className="nav-link" to="/">
                   Liên hệ
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
           <div id="actions" className="float-end">
-            <div className="item">
-             <button>user</button>
+            <div className="item" onClick={handleUserClick}>
+              {userEmail ? (
+                // Nếu có địa chỉ email, hiển thị biểu tượng người dùng
+                <FontAwesomeIcon icon={faUser} />
+              ) : (
+                // Nếu không có địa chỉ email, hiển thị nút "User"
+                <span>User</span>
+              )}
             </div>
             <div className="item">
-             <button>cart</button>
+              <Link to="/cart">
+                <button>
+                  <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItemCount} sản phẩm)
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -103,38 +198,38 @@ function Home() {
       </div>
 
       <div id="wp-products">
-          <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
-          <div className="row">
-            {products.map((product) => (
-              <div className="col-md-3 mb-4" key={product.id}>
-                <div className="card">
-                  <Link to={`/detail/${product.id}`}>
-                    <img src={product.image} className="card-img-top" alt={product.name} />
-                  </Link>
-                  <div className="card-body">
-                    <h5 className="card-title">{product.name}</h5>
-                    <p className="card-text">{product.price} ₫</p>
-                    <button className="btn btn-primary">MUA</button>
-                  </div>
+        <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
+        <div className="row">
+          {products.map((product) => (
+            <div className="col-md-3 mb-4" key={product.id}>
+              <div className="card">
+                <Link to={`/detail/${product.id}`}>
+                  <img src={product.image} className="card-img-top" alt={product.name} />
+                </Link>
+                <div className="card-body">
+                  <h5 className="card-title">{product.name}</h5>
+                  <p className="card-text">{product.price} ₫</p>
+                  <button className="btn btn-primary" onClick={() => addToCart(product)}>MUA</button>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+        <div className="list-page">
+          <div className="item">
+            <a href="/">1</a>
           </div>
-          <div className="list-page">
-            <div className="item">
-              <a href="/">1</a>
-            </div>
-            <div className="item">
-              <a href="/">2</a>
-            </div>
-            <div className="item">
-              <a href="/">3</a>
-            </div>
-            <div className="item">
-              <a href="/">4</a>
-            </div>
+          <div className="item">
+            <a href="/">2</a>
+          </div>
+          <div className="item">
+            <a href="/">3</a>
+          </div>
+          <div className="item">
+            <a href="/">4</a>
           </div>
         </div>
+      </div>
 
       <div id="saleoff" className="container">
         <div className="row">
@@ -214,16 +309,16 @@ function Home() {
               <h3>NỘI DUNG</h3>
               <ul className="quick-menu">
                 <li className="item">
-                  <a href="/">Trang chủ</a>
+                  <Link to="/">Trang chủ</Link>
                 </li>
                 <li className="item">
-                  <a href="/">Sản phẩm</a>
+                  <Link to="/">Sản phẩm</Link>
                 </li>
                 <li className="item">
-                  <a href="/">Blog</a>
+                  <Link to="/">Blog</Link>
                 </li>
                 <li className="item">
-                  <a href="/">Liên hệ</a>
+                  <Link to="/">Liên hệ</Link>
                 </li>
               </ul>
             </div>
