@@ -1,9 +1,5 @@
 
 /* Style for the container */
-#wrapper {
-    background-color: #f9f9f9;
-    padding: 20px;
-  }
   
   /* Header styling */
   #header {
@@ -21,7 +17,7 @@
   
   #actions {
     display: flex;
-    gap: 20px;
+    
   }
   
   /* Container for product details */

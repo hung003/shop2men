@@ -1,11 +1,12 @@
-import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore"; // Đảm bảo bạn đã import cả setDoc ở đây
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Menu from '../components/Menu';
 import { db } from "../firebase/FireBaseConfig";
-import "./css/home.css";
+import Footer from './../components/footer';
+import './css/home.css';
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -110,68 +111,11 @@ function Home() {
 
   return (
     <div id="wrapper">
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            <h1>Shop2men</h1>
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item active">
-                <Link className="nav-link" to="/">
-                  Trang chủ
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Sản phẩm
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Blog
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Liên hệ
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div id="actions" className="float-end">
-            {/* Sử dụng handleUserClick để chuyển hướng đến trang User */}
-            <div className="item" onClick={handleUserClick}>
-              {userEmail ? (
-                // Nếu có địa chỉ email, hiển thị biểu tượng người dùng
-                <FontAwesomeIcon icon={faUser} />
-              ) : (
-                // Nếu không có địa chỉ email, hiển thị nút "User"
-                <span>User</span>
-              )}
-            </div>
-            <div className="item">
-              <Link to="/cart">
-                <button>
-                  <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng (
-                  {cartItemCount} sản phẩm)
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+       <Menu
+        userEmail={userEmail}
+        handleUserClick={handleUserClick}
+        cartItemCount={cartItemCount}
+      />
 
       <div id="banner" className="container-fluid">
         <div className="row">
@@ -258,50 +202,7 @@ function Home() {
         </div>
       </div>
 
-      <div id="footer">
-        <div className="container-footer">
-          <div className="row">
-            <div className="col-md-4">
-              <div className="logo">
-                <img src="assets/logo.png" alt="" />
-              </div>
-              <p>Cung cấp sản phẩm với chất lượng an toàn cho quý khách</p>
-            </div>
-            <div className="col-md-4">
-              <h3>NỘI DUNG</h3>
-              <ul className="quick-menu">
-                <li className="item">
-                  <Link to="/">Trang chủ</Link>
-                </li>
-                <li className="item">
-                  <Link to="/">Sản phẩm</Link>
-                </li>
-                <li className="item">
-                  <Link to="/">Blog</Link>
-                </li>
-                <li className="item">
-                  <Link to="/">Liên hệ</Link>
-                </li>
-              </ul>
-            </div>
-            <div className="col-md-4">
-              <h3>LIÊN HỆ</h3>
-              <form action="">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Địa chỉ email"
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary">
-                  Nhận tin
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+     <Footer/>
     </div>
   );
 }

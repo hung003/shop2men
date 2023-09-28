@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { faShoppingCart, faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus, faShoppingCart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Menu from '../components/Menu';
 import { db } from "../firebase/FireBaseConfig";
-import './css/carts.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/carts.css';
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -106,6 +107,7 @@ function Cart() {
 
   if (cartItems.length === 0) {
     return (
+      
       <div id="cart">
         <h2>
           <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng (0 sản phẩm)
@@ -117,6 +119,7 @@ function Cart() {
 
   return (
     <div id="cart">
+      <Menu/>
       <h2>
         <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItems.length} sản phẩm)
       </h2>

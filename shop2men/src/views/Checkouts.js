@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getAuth } from "firebase/auth";
-import { doc, getDoc, updateDoc, collection, addDoc } from "firebase/firestore";
-import './css/checkout.css';
-import { db } from "../firebase/FireBaseConfig";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { getAuth } from "firebase/auth";
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import Menu from '../components/Menu';
+import { db } from "../firebase/FireBaseConfig";
+import './css/checkout.css';
 
 function Checkout() {
   const [cartItems, setCartItems] = useState([]);
@@ -122,7 +123,9 @@ function Checkout() {
   }
 
   return (
+    
     <div id="checkout">
+      <Menu/>
       <h2>
         <FontAwesomeIcon icon={faShoppingCart} /> Thanh toán
       </h2>
