@@ -147,7 +147,7 @@ function Home() {
       </div>
       <div id="wp-products">
   <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
-  <div className="row">
+  <div className="row row-img">
     {products.map((product) => (
       <div className="col-md-3 mb-4" key={product.id}>
         <div className="card">
@@ -179,19 +179,19 @@ function Home() {
           <div className="prev"></div>
           <ul id="list-comment">
             <li className="item">
-              <div className="name">Nguyễn Đình Vũ</div>
+              <div className="name">Nguyễn Châu Trường Giang</div>
               <div className="text">
                 <p>
                 Mình mua đúng đợt giảm giá, sản phẩm được mình bỏ vào giỏ hàng bấy lâu nay giờ cũng cầm được trên tay rồi.
                 </p>
               </div>
-              <div className="name">Hiếu Trần</div>
+              <div className="name">Phùng Nguyễn Minh Hùng</div>
               <div className="text">
                 <p>
                 Không biết mọi người sao chứ mình thấy những sản phẩm được bày bán ở shop này vô cùng chất lượng và giá cả lại hợp lý lắm luôn á.
                 </p>
               </div>
-              <div className="name">Lâm Lê</div>
+              <div className="name">uesr0381990</div>
               <div className="text">
                 <p>
                 Sản phẩm tốt thế này mà tới bây giờ tôi mới phát hiện được nó thì thật là uổng quá đi mà

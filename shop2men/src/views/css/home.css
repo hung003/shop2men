@@ -1,12 +1,12 @@
 /* Import Bootstrap CSS */
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css");
 
 /* Tùy chỉnh CSS của trang Home */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
 }
 
@@ -31,7 +31,7 @@
 }
 
 #menu .item a {
-  color: #626A67;
+  color: #626a67;
   text-decoration: none;
 }
 
@@ -49,10 +49,10 @@
   height: 500px;
   background-size: cover;
   background-position: center center;
-
 }
 
-#banner .box-left, #banner .box-right {
+#banner .box-left,
+#banner .box-right {
   width: 50%;
   display: block;
 }
@@ -64,7 +64,7 @@
 }
 
 #banner .box-left p {
-  color: #D0D0D0;
+  color: #d0d0d0;
 }
 
 #banner .box-left button {
@@ -79,7 +79,7 @@
   border-radius: 20px;
   transition: 0.4s;
 }
-.item-banner{
+.item-banner {
   margin-top: 10%;
   left: 8%;
 }
@@ -105,18 +105,16 @@
 }
 #wp-products {
   padding-top: 116px;
-  padding-bottom: 78px;
+  padding-bottom: 150px;
   padding-left: 134px;
   padding-right: 134px;
 }
-
 #wp-products h2 {
   text-align: center;
   margin-bottom: 76px;
   font-size: 32px;
   color: #626a67;
 }
-
 #comment {
   width: 1012px;
   height: 478px;

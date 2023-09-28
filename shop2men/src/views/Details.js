@@ -75,8 +75,8 @@ function Details() {
                 </div>
               </div>
               <div className="product-image-main-mini">
-                  <img src={product.image} alt={product.name} />
-                </div>
+                <img src={product.image} alt={product.name} />
+              </div>
             </div>
             <div className="col-6">
               <div className="product">
@@ -127,7 +127,6 @@ function Details() {
                 </div>
 
                 <span className="divider"></span>
-
 
                 <div className="product-btn-group">
                   <button className="btn btn-primary">

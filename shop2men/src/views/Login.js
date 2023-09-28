@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { createBrowserHistory } from 'history';
 import { auth } from '../firebase/FireBaseConfig';
