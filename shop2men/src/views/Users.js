@@ -1,4 +1,4 @@
-import { getAuth, signOut } from "firebase/auth"; // Thêm import này để sử dụng Firebase Auth
+import { getAuth, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,30 +8,26 @@ import { db } from "../firebase/FireBaseConfig";
 function User() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userData, setUserData] = useState(null);
-  const Navigate = useNavigate();
-  useEffect(() => {
-    const auth = getAuth(); // Lấy đối tượng auth từ Firebase
+  const navigate = useNavigate();
 
-    // Kiểm tra xem người dùng đã đăng nhập hay chưa
-    auth.onAuthStateChanged((user) => {
+  useEffect(() => {
+    const auth = getAuth();
+
+    auth.onAuthStateChanged(async (user) => {
       if (user) {
         setCurrentUser(user);
 
-        // Lấy thông tin người dùng từ Firestore
-        const fetchUserData = async () => {
-          try {
-            const userDocRef = doc(db, "users", user.uid);
-            const userDocSnapshot = await getDoc(userDocRef);
-            if (userDocSnapshot.exists()) {
-              setUserData(userDocSnapshot.data());
-            } else {
-              console.error("Người dùng không tồn tại.");
-            }
-          } catch (error) {
-            console.error("Lỗi lấy dữ liệu người dùng:", error);
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDocSnapshot = await getDoc(userDocRef);
+          if (userDocSnapshot.exists()) {
+            setUserData(userDocSnapshot.data());
+          } else {
+            console.error("Người dùng không tồn tại.");
           }
-        };
-        fetchUserData();
+        } catch (error) {
+          console.error("Lỗi lấy dữ liệu người dùng:", error);
+        }
       } else {
         setCurrentUser(null);
         setUserData(null);
@@ -40,32 +36,43 @@ function User() {
     });
   }, []);
 
-  if (!currentUser) {
-    return <div>Bạn chưa đăng nhập.</div>;
-  }
-
-  if (!userData) {
-    return <div>Loading...</div>;
-  }
-
-
   const handleSignOut = async () => {
     const auth = getAuth();
     try {
       await signOut(auth);
-      // Sau khi đăng xuất thành công, điều hướng đến trang đăng nhập
-      Navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error("Lỗi khi đăng xuất:", error);
     }
   };
+
   return (
-    <div>
-      <h2>Thông tin người dùng</h2>
-      <p>Email: {currentUser.email}</p>
-      <p>Tên: {currentUser.password}</p>
-      <button onClick={handleSignOut}>Đăng xuất</button>
-      {/* Hiển thị thông tin khác về người dùng tại đây */}
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title">Thông tin người dùng</h2>
+              {currentUser && (
+                <div>
+                  <p><strong>Email:</strong> {currentUser.email}</p>
+                  <p><strong>Tên:</strong> {userData?.name || "N/A"}</p>
+                  {/* Hiển thị thông tin khác về người dùng tại đây */}
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleSignOut}
+                  >
+                    Đăng xuất
+                  </button>
+                </div>
+              )}
+              {!currentUser && (
+                <p>Bạn chưa đăng nhập.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

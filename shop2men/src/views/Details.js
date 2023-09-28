@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; // Để lấy thông tin id sản phẩm từ URL
 import { db } from "../firebase/FireBaseConfig";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Details.css";
+import "./css/Details.css";
 
 function Details() {
   const { productId } = useParams(); // Lấy id sản phẩm từ URL

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAuth } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import './css/checkout.css'
+import { doc, getDoc, updateDoc, collection, addDoc } from "firebase/firestore";
+import './css/checkout.css';
 import { db } from "../firebase/FireBaseConfig";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function Checkout() {
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -16,16 +17,15 @@ function Checkout() {
     paymentMethod: "",
   });
 
-  // Lấy thông tin đăng nhập từ Firebase Auth nếu bạn sử dụng Firebase Auth
-  const auth = getAuth(); // Thay 'firebase' bằng object Firebase của bạn
+  const auth = getAuth();
 
   useEffect(() => {
     const fetchCartData = async () => {
-      const currentUser = auth.currentUser; // Lấy người dùng hiện tại
+      const currentUser = auth.currentUser;
 
       if (currentUser) {
-        const userId = currentUser.uid; // Sử dụng UID của người dùng hiện tại
-        const userDocRef = doc(db, "users", userId); // Truy cập tài liệu người dùng
+        const userId = currentUser.uid;
+        const userDocRef = doc(db, "users", userId);
         const userCartData = await getDoc(userDocRef);
 
         if (userCartData.exists()) {
@@ -47,7 +47,6 @@ function Checkout() {
     setTotalAmount(total);
   };
 
-  // Hàm định dạng số với dấu phân cách hàng nghìn
   const formatNumberWithCommas = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
@@ -60,11 +59,44 @@ function Checkout() {
     });
   };
 
-  // Xử lý khi người dùng nhấn nút Thanh toán
-  const handleCheckout = () => {
-    // Thực hiện xử lý thanh toán ở đây
-    // userData.email, userData.name, userData.address và userData.paymentMethod
-    // chứa thông tin mà người dùng đã nhập
+  const handleCheckout = async () => {
+    try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        console.error("Người dùng chưa đăng nhập.");
+        return;
+      }
+
+      const orderData = {
+        email: userData.email,
+        name: userData.name,
+        address: userData.address,
+        paymentMethod: userData.paymentMethod,
+        totalAmount: totalAmount,
+      };
+
+      const ordersCollectionRef = collection(db, "orders");
+      await addDoc(ordersCollectionRef, orderData);
+
+      const userId = currentUser.uid;
+      const userDocRef = doc(db, "users", userId);
+      const userDocSnapshot = await getDoc(userDocRef);
+
+      if (userDocSnapshot.exists()) {
+       
+
+        await updateDoc(userDocRef, {
+          cart: [],
+        });
+
+        // Simulate a successful payment (replace this with your actual payment logic)
+        console.log("Thanh toán thành công!");
+      } else {
+        console.error("Người dùng không tồn tại.");
+      }
+    } catch (error) {
+      console.error("Lỗi khi xử lý thanh toán:", error);
+    }
   };
 
   if (!auth.currentUser) {
@@ -134,8 +166,8 @@ function Checkout() {
             required
           >
             <option value="">Chọn cách thanh toán</option>
-            <option value="credit_card">Thẻ tín dụng</option>
-            <option value="paypal">PayPal</option>
+            <option value="credit_card">Atm</option>
+            <option value="momo">momo</option>
           </select>
         </div>
         <p>Tổng cộng: {formatNumberWithCommas(totalAmount)} ₫</p>

@@ -12,7 +12,9 @@ function Home() {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [userEmail, setUserEmail] = useState("");
   const navigate = useNavigate();
-
+  const formatNumberWithCommas = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -200,34 +202,33 @@ function Home() {
         </div>
       </div>
       <div id="wp-products">
-        <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
-        <div className="row">
-          {products.map((product) => (
-            <div className="col-md-3 mb-4" key={product.id}>
-              <div className="card">
-                <Link to={`/detail/${product.id}`}>
-                  <img
-                    src={product.image}
-                    className="card-img-top"
-                    alt={product.name}
-                  />
-                </Link>
-                <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
-                  <p className="card-text">{product.price} ₫</p>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => addToCart(product)}
-                  >
-                    MUA
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+  <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
+  <div className="row">
+    {products.map((product) => (
+      <div className="col-md-3 mb-4" key={product.id}>
+        <div className="card">
+          <Link to={`/detail/${product.id}`}>
+            <img
+              src={product.image}
+              className="card-img-top"
+              alt={product.name}
+            />
+          </Link>
+          <div className="card-body">
+            <h5 className="card-title">{product.name}</h5>
+            <p className="card-text">{formatNumberWithCommas(product.price)} ₫</p>
+            <button
+              className="btn btn-primary"
+              onClick={() => addToCart(product)}
+            >
+              MUA
+            </button>
+          </div>
         </div>
       </div>
-
+    ))}
+  </div>
+</div>
       <div id="comment" className="container">
         <h2>NHẬN XÉT CỦA KHÁCH HÀNG</h2>
         <div id="comment-body">
