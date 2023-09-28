@@ -1,0 +1,45 @@
+/* Căn giữa trang */
+#checkout {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Định dạng form */
+.checkout-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Định dạng các input và select */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Định dạng nút thanh toán */
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}

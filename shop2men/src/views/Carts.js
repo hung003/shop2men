@@ -1,16 +1,28 @@
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import { faShoppingCart, faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAuth } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { db } from "../firebase/FireBaseConfig";
-
+import './css/carts.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
-
+  const formatNumberWithCommas = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   // Lấy thông tin đăng nhập từ Firebase Auth nếu bạn sử dụng Firebase Auth
   const auth = getAuth(); // Thay 'firebase' bằng object Firebase của bạn
+
+  const updateTotalAmount = (cart) => {
+    const total = cart.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+    setTotalAmount(total);
+  };
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -24,19 +36,62 @@ function Cart() {
         if (userCartData.exists()) {
           const userCart = userCartData.data().cart || [];
           setCartItems(userCart);
-
-          // Tính tổng số tiền
-          const total = userCart.reduce(
-            (acc, item) => acc + item.price * item.quantity,
-            0
-          );
-          setTotalAmount(total);
+          updateTotalAmount(userCart);
         }
       }
     };
 
     fetchCartData();
   }, [auth]);
+
+  const removeFromCart = async (productId) => {
+    const updatedCart = cartItems.filter((item) => item.id !== productId);
+    setCartItems(updatedCart);
+
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const userId = currentUser.uid;
+      const userDocRef = doc(db, "users", userId);
+      await setDoc(userDocRef, { cart: updatedCart });
+      updateTotalAmount(updatedCart);
+    }
+  };
+
+  const increaseQuantity = (productId) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === productId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const userId = currentUser.uid;
+      const userDocRef = doc(db, "users", userId);
+      setDoc(userDocRef, { cart: updatedCart }, { merge: true });
+      updateTotalAmount(updatedCart);
+    }
+  };
+
+  const decreaseQuantity = (productId) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === productId && item.quantity > 1) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const userId = currentUser.uid;
+      const userDocRef = doc(db, "users", userId);
+      setDoc(userDocRef, { cart: updatedCart }, { merge: true });
+      updateTotalAmount(updatedCart);
+    }
+  };
 
   if (!auth.currentUser) {
     return (
@@ -63,18 +118,56 @@ function Cart() {
   return (
     <div id="cart">
       <h2>
-        <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItems.length}{" "}
-        sản phẩm)
+        <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItems.length} sản phẩm)
       </h2>
-      <ul>
-        {cartItems.map((product, index) => (
-          <li key={index}>
-            {product.name} - {product.price} ₫ - Số lượng: {product.quantity}
-          </li>
+      <div className="row">
+        {cartItems.map((product) => (
+          <div className="col-md-6" key={product.id}>
+            <div className="card mb-3">
+              <div className="row g-0">
+                <div className="col-md-4">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="img-fluid"
+                  />
+                </div>
+                <div className="col-md-8">
+                  <div className="card-body">
+                    <h5 className="card-title">{product.name}</h5>
+                    <p className="card-text">Giá: {product.price} ₫</p>
+                    <div className="quantity">
+                      <button
+                        onClick={() => decreaseQuantity(product.id)}
+                        className="btn btn-secondary"
+                      >
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <span className="quantity-text">{product.quantity}</span>
+                      <button
+                        onClick={() => increaseQuantity(product.id)}
+                        className="btn btn-secondary"
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
+                    <button
+                      onClick={() => removeFromCart(product.id)}
+                      className="btn btn-danger remove-button"
+                    >
+                      <FontAwesomeIcon icon={faTrash} /> Xóa
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
-      <p>Tổng cộng: {totalAmount} ₫</p>
-      <button className="btn btn-primary">Thanh toán</button>
+      </div>
+      <p>Tổng cộng: {formatNumberWithCommas(totalAmount)} ₫</p>
+      <Link to="/checkout">
+        <button className="btn btn-primary">Thanh toán</button>
+      </Link>
     </div>
   );
 }

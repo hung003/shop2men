@@ -7,6 +7,7 @@ import ProductMenu from "../admin/ProductMenu";
 import Details from "../views/Details";
 import Cart from "../views/Carts";
 import User from "../views/Users";
+import Checkout from "../views/Checkouts";
 
 function AppRoutes() {
   return (
@@ -20,6 +21,7 @@ function AppRoutes() {
           <Route path="/detail/:productId" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/user/:userId" element={<User />} />
+          <Route path="/checkout" element={<  Checkout />} />
         </Routes>
       </div>
     </Router>
