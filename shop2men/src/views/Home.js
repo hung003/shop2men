@@ -96,15 +96,18 @@ function Home() {
   };
 
   const handleUserClick = () => {
+    const auth = getAuth();
+      const user = auth.currentUser;
     if (userEmail) {
-      navigate("/user");
+      
+      // Chuyển đến trang /user/:userId nếu có userId
+      navigate(`/user/${user.uid}`);
     } else {
-      // Xử lý khi người dùng chưa đăng nhập
-      // Ví dụ: hiển thị form đăng nhập hoặc yêu cầu đăng nhập
-      console.log("Người dùng chưa đăng nhập");
+      // Xử lý khi người dùng chưa đăng nhập, ví dụ: chuyển đến trang đăng nhập
+      navigate("/login");
     }
   };
-
+  
   return (
     <div id="wrapper">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -148,15 +151,16 @@ function Home() {
             </ul>
           </div>
           <div id="actions" className="float-end">
-            <div className="item" onClick={handleUserClick}>
-              {userEmail ? (
-                // Nếu có địa chỉ email, hiển thị biểu tượng người dùng
-                <FontAwesomeIcon icon={faUser} />
-              ) : (
-                // Nếu không có địa chỉ email, hiển thị nút "User"
-                <span>User</span>
-              )}
-            </div>
+             {/* Sử dụng handleUserClick để chuyển hướng đến trang User */}
+        <div className="item" onClick={handleUserClick}>
+          {userEmail ? (
+            // Nếu có địa chỉ email, hiển thị biểu tượng người dùng
+            <FontAwesomeIcon icon={faUser} />
+          ) : (
+            // Nếu không có địa chỉ email, hiển thị nút "User"
+            <span>User</span>
+          )}
+        </div>
             <div className="item">
               <Link to="/cart">
                 <button>
@@ -168,6 +172,34 @@ function Home() {
         </div>
       </nav>
 
+      <div id="banner" className="container-fluid">
+        <div className="row">
+          <div className="col-lg-6">
+            <h2>
+              <span>THỨC ĂN</span>
+              <br />
+              <span>THƯỢNG HẠNG</span>
+            </h2>
+            <p>
+              Chuyên cung cấp các món ăn đảm bảo dinh dưỡng hợp vệ sinh đến
+              người dùng, phục vụ người dùng 1 cách hoàn hảo nhất
+            </p>
+            <button className="btn btn-primary">Mua ngay</button>
+          </div>
+          <div className="col-lg-6">
+            <img src="./assets/img_1.png" alt="" className="img-fluid" />
+            <img src="./assets/img_2.png" alt="" className="img-fluid" />
+            <img src="./assets/img_3.png" alt="" className="img-fluid" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12 text-center">
+            <a href="#wp-products">
+              <img src="assets/to_bottom.png" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
       <div id="wp-products">
         <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
         <div className="row">
@@ -185,6 +217,115 @@ function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+      <div id="saleoff" className="container">
+        <div className="row">
+          <div className="col-lg-6">
+            <h1>
+              <span>GIẢM GIÁ LÊN ĐẾN</span>
+              <span>45%</span>
+            </h1>
+          </div>
+          <div className="col-lg-6">
+            {/* Để trống hoặc thêm nội dung bạn muốn */}
+          </div>
+        </div>
+      </div>
+
+      <div id="comment" className="container">
+        <h2>NHẬN XÉT CỦA KHÁCH HÀNG</h2>
+        <div id="comment-body">
+          <div className="prev">
+            <a href="/">
+              <img src="assets/prev.png" alt="" />
+            </a>
+          </div>
+          <ul id="list-comment">
+            <li className="item">
+              <div className="avatar">
+                <img src="assets/avatar_1.png" alt="" />
+              </div>
+              <div className="stars">
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
+                <span>
+                  <img src="assets/star.png" alt="" />
+                </span>
+              </div>
+              <div className="name">Nguyễn Đình Vũ</div>
+              <div className="text">
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book.
+                </p>
+              </div>
+            </li>
+            {/* Thêm các bình luận khác ở đây */}
+          </ul>
+          <div className="next">
+            <a href="/">
+              <img src="assets/next.png" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="footer">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <div className="logo">
+                <img src="assets/logo.png" alt="" />
+              </div>
+              <p>Cung cấp sản phẩm với chất lượng an toàn cho quý khách</p>
+            </div>
+            <div className="col-md-4">
+              <h3>NỘI DUNG</h3>
+              <ul className="quick-menu">
+                <li className="item">
+                  <Link to="/">Trang chủ</Link>
+                </li>
+                <li className="item">
+                  <Link to="/">Sản phẩm</Link>
+                </li>
+                <li className="item">
+                  <Link to="/">Blog</Link>
+                </li>
+                <li className="item">
+                  <Link to="/">Liên hệ</Link>
+                </li>
+              </ul>
+            </div>
+            <div className="col-md-4">
+              <h3>LIÊN HỆ</h3>
+              <form action="">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Địa chỉ email"
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Nhận tin
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>

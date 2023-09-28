@@ -1,0 +1,19 @@
+/* Cart.css */
+
+/* Định dạng tổng thể của trang giỏ hàng */
+#cart {
+    padding: 20px;
+  }
+  
+  /* Định dạng tiêu đề và biểu tượng giỏ hàng */
+  #cart h2 {
+    font-size: 24px;
+  }
+  
+  /* Định dạng danh sách sản phẩm trong giỏ hàng */
+  .list-group-item {
+    border: none;
+  }
+  
+  /* Định dạng nút thanh toán
+  
