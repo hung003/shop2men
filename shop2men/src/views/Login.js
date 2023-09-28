@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { createBrowserHistory } from 'history';
-import {auth} from '../firebase/FireBaseConfig';
+import { auth } from '../firebase/FireBaseConfig';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Login.css';
+
 
 const history = createBrowserHistory();
 
@@ -27,7 +27,7 @@ class Login extends Component {
                 // Lưu thông tin đăng nhập vào localStorage
                 localStorage.setItem('loggedInUser', JSON.stringify(data.user));
                 
-                history.push('/home');
+                history.push('/home'); // Chuyển hướng sau khi đăng nhập thành công
                 window.location.reload();
             })
             .catch(error => {
@@ -47,9 +47,10 @@ class Login extends Component {
                                 <div className="form-group">
                                     <label>Email:</label>
                                     <input
-                                        type="text"
+                                        type="email"
                                         className="form-control"
                                         value={this.state.email}
+                                        name="email"
                                         onChange={(e) => this.setState({ email: e.target.value })}
                                     />
                                 </div>
@@ -66,7 +67,7 @@ class Login extends Component {
                                 <div className="text-center">
                                     <button className="btn btn-primary" onClick={() => this.handleLogin()}>Login</button>
                                 </div>
-                                <p className="mt-3 text-center">Nếu bạn chưa có tài khoản, hãy <Link to="/">đăng ký</Link>.</p>
+                                <p className="mt-3 text-center">Nếu bạn chưa có tài khoản, hãy <Link to="/register">đăng ký</Link>.</p>
                             </div>
                         </div>
                     </div>

@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebase/FireBaseConfig";
-import "./home.css";
+import "./css/home.css";
 
 function Home() {
   const [products, setProducts] = useState([]);

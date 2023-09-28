@@ -1,5 +1,5 @@
 
-import Password from './views/Password';
+import Password from './routes/Route';
 
 
 
