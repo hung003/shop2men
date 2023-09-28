@@ -48,7 +48,7 @@
 
 #banner {
   width: 100%;
-  background-image: url("images/hero/hero-1.jpg");
+  background-image: url("../images/hero/hero-1.jpg");
   height: 500px;
   margin-top: 40px;
   background-size: cover;
