@@ -48,12 +48,10 @@
 
 #banner {
   width: 100%;
-  background-image: url("assets/banner.png");
-  height: 463px;
+  background-image: url("images/hero/hero-1.jpg");
+  height: 500px;
   margin-top: 40px;
-  display: flex;
-  padding: 0px 133px;
-  position: relative;
+
 }
 
 #banner .box-left, #banner .box-right {
@@ -246,7 +244,7 @@
 }
 
 #saleoff .box-right {
-  background-image: url("assets/off.png");
+  background-image: url("images/hero/hero-1.jpg");
 }
 
 #comment {

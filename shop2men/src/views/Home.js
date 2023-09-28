@@ -228,7 +228,7 @@ function Home() {
             </h1>
           </div>
           <div className="col-lg-6">
-            {/* Để trống hoặc thêm nội dung bạn muốn */}
+          <img src="img" alt="" />
           </div>
         </div>
       </div>
