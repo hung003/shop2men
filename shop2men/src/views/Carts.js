@@ -63,7 +63,8 @@ function Cart() {
   return (
     <div id="cart">
       <h2>
-        <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItems.length} sản phẩm)
+        <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItems.length}{" "}
+        sản phẩm)
       </h2>
       <ul>
         {cartItems.map((product, index) => (

@@ -41,9 +41,13 @@
   }
   
   .product-image-main img {
-    max-width: 100%;
+   height: 80%;
+   width: 100% ;
   }
-  
+  .product-image-main-mini img {
+    width: 30% ;
+    margin-top: -10%;
+   }
   .product-image-slider {
     display: flex;
     gap: 10px;
@@ -223,7 +227,7 @@
   }
   
   /* Responsive layout */
-  @media (max-width: 768px) {
+  @media (max-width: 500px) {
     .container {
       padding: 10px;
     }
@@ -238,8 +242,8 @@
       gap: 5px;
     }
   
-    .product-image-main img {
-      max-width: 100%;
+    .product-image-main {
+      height: 5px;
     }
   
     .product-details h3 {
