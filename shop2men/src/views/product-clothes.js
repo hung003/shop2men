@@ -1,25 +1,28 @@
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore"; // Đảm bảo bạn đã import cả setDoc ở đây
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Menu from '../components/Menu';
+import Footer from '../components/footer';
 import { db } from "../firebase/FireBaseConfig";
-import Footer from './../components/footer';
-import './css/home.css';
-
-function Home() {
+function Product() {
   const [products, setProducts] = useState([]);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [userEmail, setUserEmail] = useState("");
   const navigate = useNavigate();
+
   const formatNumberWithCommas = (number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if (number !== undefined && number !== null) {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    // Nếu giá trị không tồn tại hoặc không xác định, bạn có thể xử lý một cách thích hợp ở đây.
+    return "N/A"; // Ví dụ: Trả về chuỗi "N/A" cho các sản phẩm không có giá.
   };
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const productRef = collection(db, "products");
+        const productRef = collection(db, "product-clothes"); // Thay đổi thành "product-clothes"
         const snapshot = await getDocs(productRef);
         const productsData = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -111,94 +114,47 @@ function Home() {
 
   return (
     <div id="wrapper">
-       <Menu
+      <Menu
         userEmail={userEmail}
         handleUserClick={handleUserClick}
         cartItemCount={cartItemCount}
       />
 
-      <div id="banner" className="container-fluid">
-        <div className="row">
-          <div className="item-banner col-lg-6">
-            <h2>
-              <span>Summer Collection</span>
-              <br />
-              <span>Fall - Winter Collections 2030</span>
-            </h2>
-            <p>
-              A specialist label creating luxury essentials. Ethically crafted
-              with an unwavering commitment to exceptional quality.
-            </p>
-            <button className="btn btn-primary">Mua ngay</button>
-          </div>
-          <div className="col-lg-6">
-            <img src="./assets/img_1.png" alt="" className="img-fluid" />
-            <img src="./assets/img_2.png" alt="" className="img-fluid" />
-            <img src="./assets/img_3.png" alt="" className="img-fluid" />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12 text-center">
-            <a href="#wp-products">
-              <img src="assets/to_bottom.png" alt="" />
-            </a>
-          </div>
-        </div>
-      </div>
+      {/* Thêm mã HTML và JSX để hiển thị danh sách sản phẩm tại đây */}
       <div id="wp-products">
-  <h2>SẢN PHẨM CỦA CHÚNG TÔI</h2>
-  <div className="row row-img">
-  {products.map((product) => (
-  <div className="col-md-3 " key={product.id}>
-    <div className="card">
- 
-      <div className="card-body">
-       <Link to={`/detail/${product.id}`}>
-        <img src={product.image} className="card-img-top" alt={product.name} />
-      </Link>
-        <h5 className="card-title">{product.name}</h5>
-        <p className="card-text">{formatNumberWithCommas(product.price)} ₫</p>
-        <button className="btn btn-primary" onClick={() => addToCart(product)}>
-          MUA
-        </button>
-      </div>
-    </div>
-  </div>
-))}
-  </div>
-</div>
-      <div id="comment" className="container">
-        <h2>NHẬN XÉT CỦA KHÁCH HÀNG</h2>
-        <div id="comment-body">
-          <div className="prev"></div>
-          <ul id="list-comment">
-            <li className="item">
-              <div className="name">Nguyễn Châu Trường Giang</div>
-              <div className="text">
-                <p>
-                Mình mua đúng đợt giảm giá, sản phẩm được mình bỏ vào giỏ hàng bấy lâu nay giờ cũng cầm được trên tay rồi.
-                </p>
+        <h2>SẢN PHẨM Quần</h2>
+        <div className="row row-img">
+          {products.map((product) => (
+            <div className="col-md-3 " key={product.id}>
+              <div className="card">
+                <div className="card-body">
+                  <Link to={`/detail/${product.id}`}>
+                    <img
+                      src={product.image}
+                      className="card-img-top"
+                      alt={product.name}
+                    />
+                  </Link>
+                  <h5 className="card-title">{product.name}</h5>
+                  <p className="card-text">
+                    {formatNumberWithCommas(product.price)} ₫
+                  </p>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => addToCart(product)}
+                  >
+                    MUA
+                  </button>
+                </div>
               </div>
-              <div className="name">Phùng Nguyễn Minh Hùng</div>
-              <div className="text">
-                <p>
-                Không biết mọi người sao chứ mình thấy những sản phẩm được bày bán ở shop này vô cùng chất lượng và giá cả lại hợp lý lắm luôn á.
-                </p>
-              </div>
-              <div className="name">uesr0381990</div>
-              <div className="text">
-                <p>
-                Sản phẩm tốt thế này mà tới bây giờ tôi mới phát hiện được nó thì thật là uổng quá đi mà
-                </p>
-              </div>
-            </li>
-          </ul>
+            </div>
+          ))}
         </div>
       </div>
-
-     <Footer/>
+<Footer/>
+      {/* (Thêm phần còn lại của mã JSX và HTML của trang Home) */}
     </div>
   );
 }
 
-export default Home;
+export default Product;

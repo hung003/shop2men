@@ -103,17 +103,66 @@
 #banner .box-right img:nth-child(2) {
   animation-delay: 1s;
 }
-#wp-products {
-  padding-top: 116px;
-  padding-bottom: 150px;
-  padding-left: 134px;
-  padding-right: 134px;
+.card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 10px;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column; /* Hiển thị các phần tử con dưới nhau */
+  align-items: center; /* Canh giữa các phần tử con ngang */
+  text-align: center; /* Căn giữa nội dung văn bản */
 }
-#wp-products h2 {
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 10px; /* Khoảng cách giữa ảnh và tên sản phẩm */
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 5px; /* Khoảng cách giữa tên sản phẩm và giá */
+}
+
+.card-img-top {
+  width: 100px; /* Đặt chiều rộng ảnh là 100px */
+  height: 100px; /* Đặt chiều cao ảnh là 100px */
+  object-fit: cover;
+  object-position: top; /* Đảm bảo ảnh đầy phần trên */
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px; /* Khoảng cách giữa giá và nút "MUA" */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Trung tâm các thẻ sản phẩm */
+
+
+/* Kiểu cho khung sản phẩm */
+#wp-products {
+  padding: 50px 0;
   text-align: center;
-  margin-bottom: 76px;
-  font-size: 32px;
-  color: #626a67;
+}
+
+#wp-products h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
 }
 #comment {
   width: 1012px;
