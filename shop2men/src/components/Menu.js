@@ -8,7 +8,7 @@ function Menu({ userEmail, handleUserClick, cartItemCount }) {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/home">
             <h1>Shop2men</h1>
           </Link>
           <button
@@ -25,22 +25,17 @@ function Menu({ userEmail, handleUserClick, cartItemCount }) {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item active">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/home">
                   Trang chủ
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/home">
                   Sản phẩm
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Blog
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/home">
                   Liên hệ
                 </Link>
               </li>

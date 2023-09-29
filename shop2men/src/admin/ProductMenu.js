@@ -12,8 +12,10 @@ import {
   uploadBytes
 } from "firebase/storage";
 import React, { Component } from "react";
+// import "../admin/ProductMenu.css";
 import { db } from "../firebase/FireBaseConfig";
-import "./ProductMenu.css";
+import LeftSideMenu from './LeftMenu';
+
 
 class ProductMenu extends Component {
   state = {
@@ -21,7 +23,7 @@ class ProductMenu extends Component {
     newProduct: {
       id: "",
       name: "",
-      price: 0,
+      price: "",
       image: "",
       size: "",
       productDescription: "",
@@ -206,8 +208,16 @@ class ProductMenu extends Component {
 
   render() {
     return (
+     
 <div>
+ <LeftSideMenu/>
   <h1>Menu Sản Phẩm</h1>
+  <button
+          className="btn btn-success"
+          onClick={() => this.setState({ isModalOpen: true, isEditModalOpen: false })}
+        >
+          Thêm Sản Phẩm
+        </button>
   <table className="table">
     <thead>
       <tr>
@@ -256,17 +266,12 @@ class ProductMenu extends Component {
     </tbody>
   </table>
 
-  <button
-    className="btn btn-success"
-    onClick={() => this.setState({ isModalOpen: true })}
-  >
-    Thêm Sản Phẩm
-  </button>
+ 
 
-  {this.state.isModalOpen && (
-    <div className="modal">
-      <div className="modal-content">
-        <h2>Thêm Sản Phẩm Mới</h2>
+        {this.state.isModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Thêm Sản Phẩm Mới</h2>
         <div className="form-group">
           <input
             type="text"
@@ -382,27 +387,27 @@ class ProductMenu extends Component {
               />
             </div>
           )}
-          <button
-            className="btn btn-success"
-            onClick={() => this.handleAddProduct()}
-          >
-            Thêm
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => this.setState({ isModalOpen: false })}
-          >
-            Đóng
-          </button>
-        </div>
-      </div>
-    </div>
-  )}
+           <button
+                className="btn btn-success"
+                onClick={() => this.handleAddProduct()}
+              >
+                Thêm
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={() => this.setState({ isModalOpen: false })}
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+          </div>
+        )}
 
-  {this.state.isEditModalOpen && (
-    <div className="modal">
-      <div className="modal-content">
-        <h2>Chỉnh Sửa Sản Phẩm</h2>
+{this.state.isEditModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Chỉnh Sửa Sản Phẩm</h2>
         <div className="form-group">
           <input
             type="text"
@@ -518,18 +523,18 @@ class ProductMenu extends Component {
               />
             </div>
           )}
-          <button
-            className="btn btn-success"
-            onClick={() => this.handleSaveEditedProduct()}
-          >
-            Lưu
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => this.handleEditModalClose()}
-          >
-            Đóng
-          </button>
+         <button
+                className="btn btn-success"
+                onClick={() => this.handleSaveEditedProduct()}
+              >
+                Lưu
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={() => this.setState({ isEditModalOpen: false })}
+              >
+                Đóng
+              </button>
         </div>
       </div>
     </div>

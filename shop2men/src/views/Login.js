@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { createBrowserHistory } from 'history';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { auth } from '../firebase/FireBaseConfig';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const history = createBrowserHistory();
 

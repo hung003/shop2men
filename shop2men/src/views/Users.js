@@ -7,7 +7,7 @@ import { db } from "../firebase/FireBaseConfig";
 
 function User() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [ setUserData] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,13 +28,9 @@ function User() {
         } catch (error) {
           console.error("Lỗi lấy dữ liệu người dùng:", error);
         }
-      } else {
-        setCurrentUser(null);
-        setUserData(null);
-        console.log("Người dùng chưa đăng nhập.");
       }
     });
-  }, []);
+  }, );
 
   const handleSignOut = async () => {
     const auth = getAuth();
@@ -56,7 +52,7 @@ function User() {
               {currentUser && (
                 <div>
                   <p><strong>Email:</strong> {currentUser.email}</p>
-                  <p><strong>Tên:</strong> {userData?.name || "N/A"}</p>
+                
                   {/* Hiển thị thông tin khác về người dùng tại đây */}
                   <button
                     className="btn btn-primary"

@@ -1,4 +1,4 @@
-/* Định dạng card sản phẩm */
+Định dạng card sản phẩm
 .card {
     border: 1px solid #ccc;
     margin-bottom: 20px;
@@ -68,4 +68,4 @@
     cursor: pointer;
     margin-top: 20px;
   }
-  
+ 

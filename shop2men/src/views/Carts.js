@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { faShoppingCart, faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus, faShoppingCart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase/FireBaseConfig";
-import './css/carts.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Menu from './../components/Menu';
+import Footer from './../components/footer';
+import './css/carts.css';
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -117,36 +118,13 @@ function Cart() {
   }
 
   return (
-    <><div id="header">
-      <a href="/" className="logo">
-        <img src="assets/logo.png" alt="" />
-      </a>
-      <div id="menu">
-        <div className="item">
-          <a href="index.html">Trang chủ</a>
-        </div>
-        <div className="item">
-          <a href="trang2.html">Sản phẩm</a>
-        </div>
-        <div className="item">
-          <a href="/">Blog</a>
-        </div>
-        <div className="item">
-          <a href="/">Liên hệ</a>
-        </div>
-      </div>
-      <div id="actions">
-        <div className="item">
-          <img src="assets/user.png" alt="" />
-        </div>
-        <div className="item">
-          <img src="assets/cart.png" alt="" />
-        </div>
-      </div>
-    </div>
-    <div id="cart text-center">
+    <>
+      <Menu />
+
+      <div id="cart text-center">
         <h2 className="text-center">
-          <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItems.length} sản phẩm)
+          <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItems.length}{" "}
+          sản phẩm)
         </h2>
         <div className="row">
           {cartItems.map((product) => (
@@ -157,7 +135,8 @@ function Cart() {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="img-fluid" />
+                      className="img-fluid"
+                    />
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
@@ -170,7 +149,9 @@ function Cart() {
                         >
                           <FontAwesomeIcon icon={faMinus} />
                         </button>
-                        <span className="quantity-text">{product.quantity}</span>
+                        <span className="quantity-text text-center">
+                          {product.quantity}
+                        </span>
                         <button
                           onClick={() => increaseQuantity(product.id)}
                           className="btn btn-secondary"
@@ -191,42 +172,19 @@ function Cart() {
             </div>
           ))}
         </div>
-        <p className="text-center">Tổng cộng: {formatNumberWithCommas(totalAmount)} ₫</p>
-        <Link to="/checkout" className="text-center">
-          <button className="btn btn-primary mb-5 text text-center">Thanh toán</button>
-        </Link>
-      </div>
-
-      <div id="footer">
-        <div className="box">
-          <p>Cung cấp sản phẩm với chất lượng an toàn cho quý khách</p>
-        </div>
-        <div className="box">
-          <h3>NỘI DUNG</h3>
-          <ul className="quick-menu">
-            <div className="item1">
-              <a href="/">Trang chủ</a>
-            </div>
-            <div className="item1">
-              <a href="/">Sản phẩm</a>
-            </div>
-            <div className="item1">
-              <a href="/">Blog</a>
-            </div>
-            <div className="item1">
-              <a href="/">Liên hệ</a>
-            </div>
-          </ul>
-        </div>
-        <div className="box">
-          <h3>LIÊN HỆ</h3>
-          <form action="">
-            <input type="text" placeholder="Địa chỉ email" />
-            <button>Nhận tin</button>
-          </form>
+        <div className="text-center">
+          <p className="text-center">
+            Tổng cộng: {formatNumberWithCommas(totalAmount)} ₫
+          </p>
+          <Link to="/checkout" className="text-center">
+            <button className="btn btn-primary mb-5 text text-center">
+              Thanh toán
+            </button>
+          </Link>
         </div>
       </div>
-      </>
+      <Footer/>
+    </>
   );
 }
 

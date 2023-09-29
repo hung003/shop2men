@@ -1,8 +1,8 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; // Để lấy thông tin id sản phẩm từ URL
 import { db } from "../firebase/FireBaseConfig";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Details.css";
 
 function Details() {
@@ -109,7 +109,7 @@ function Details() {
 
                 <div className="product-details">
                   <h3>Thông tin</h3>
-                  <p>Mô tả: {product.description}</p>
+                  <p>Mô tả: {product.productDescription}</p>
                 </div>
                 <div className="product-size">
                   <h4>Size</h4>
