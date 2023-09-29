@@ -14,7 +14,6 @@ import {
 import React, { Component } from "react";
 // import "../admin/ProductMenu.css";
 import { db } from "../firebase/FireBaseConfig";
-import LeftSideMenu from './LeftMenu';
 
 
 class ProductMenu extends Component {
@@ -29,6 +28,7 @@ class ProductMenu extends Component {
       productDescription: "",
       color: "", // Thêm trường color
     },
+    isOpen: false,
     isModalOpen: false,
     isEditModalOpen: false,
     editProductId: "",
@@ -205,12 +205,15 @@ class ProductMenu extends Component {
       console.error("Lỗi chỉnh sửa sản phẩm:", error);
     }
   };
-
+  toggleLeftMenu = () => {
+    this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
+  };
+  
   render() {
     return (
      
 <div>
- <LeftSideMenu/>
+
   <h1>Menu Sản Phẩm</h1>
   <button
           className="btn btn-success"

@@ -3,11 +3,14 @@ import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; // Để lấy thông tin id sản phẩm từ URL
 import { db } from "../firebase/FireBaseConfig";
+import Menu from './../components/Menu';
+import Footer from './../components/footer';
 import "./css/Details.css";
 
 function Details() {
-  const { productId } = useParams(); // Lấy id sản phẩm từ URL
+  const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,44 +29,25 @@ function Details() {
     fetchProduct();
   }, [productId]);
 
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value, 10);
+    if (!isNaN(newQuantity)) {
+      setQuantity(newQuantity);
+    }
+  };
+
+ 
+
   if (!product) {
-    // Xử lý trường hợp sản phẩm không tồn tại hoặc đang được tải
     return (
       <div>
         <p>Loading...</p>
       </div>
     );
   }
-
   return (
     <div id="wrapper">
-      <div id="header">
-        <a href="/" className="logo">
-          <img src="assets/logo.png" alt="" />
-        </a>
-        <div id="menu">
-          <div className="item">
-            <a href="index.html">Trang chủ</a>
-          </div>
-          <div className="item">
-            <a href="trang2.html">Sản phẩm</a>
-          </div>
-          <div className="item">
-            <a href="/">Blog</a>
-          </div>
-          <div className="item">
-            <a href="/">Liên hệ</a>
-          </div>
-        </div>
-        <div id="actions">
-          <div className="item">
-            <img src="assets/user.png" alt="" />
-          </div>
-          <div className="item">
-            <img src="assets/cart.png" alt="" />
-          </div>
-        </div>
-      </div>
+      <Menu/>
 
       <div className="container">
         <div className="single-product">
@@ -74,9 +58,7 @@ function Details() {
                   <img src={product.image} alt={product.name} />
                 </div>
               </div>
-              <div className="product-image-main-mini">
-                <img src={product.image} alt={product.name} />
-              </div>
+             
             </div>
             <div className="col-6">
               <div className="product">
@@ -125,6 +107,17 @@ function Details() {
                     </button>
                   </div>
                 </div>
+                <div className="product-quantity">
+                  <label htmlFor="quantity">Số lượng:</label>
+                  <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    min="1"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                  />
+                </div>
 
                 <span className="divider"></span>
 
@@ -144,39 +137,7 @@ function Details() {
           </div>
         </div>
       </div>
-
-      <div id="footer">
-        <div className="box">
-          <div className="logo">
-            <img src="assets/logo.png" alt="" />
-          </div>
-          <p>Cung cấp sản phẩm với chất lượng an toàn cho quý khách</p>
-        </div>
-        <div className="box">
-          <h3>NỘI DUNG</h3>
-          <ul className="quick-menu">
-            <div className="item1">
-              <a href="/">Trang chủ</a>
-            </div>
-            <div className="item1">
-              <a href="/">Sản phẩm</a>
-            </div>
-            <div className="item1">
-              <a href="/">Blog</a>
-            </div>
-            <div className="item1">
-              <a href="/">Liên hệ</a>
-            </div>
-          </ul>
-        </div>
-        <div className="box">
-          <h3>LIÊN HỆ</h3>
-          <form action="">
-            <input type="text" placeholder="Địa chỉ email" />
-            <button>Nhận tin</button>
-          </form>
-        </div>
-      </div>
+<Footer/>
     </div>
   );
 }

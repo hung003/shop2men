@@ -9,6 +9,7 @@ import { db } from "../firebase/FireBaseConfig";
 import Menu from './../components/Menu';
 import Footer from './../components/footer';
 import './css/carts.css';
+
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -126,52 +127,61 @@ function Cart() {
           <FontAwesomeIcon icon={faShoppingCart} /> Giỏ hàng ({cartItems.length}{" "}
           sản phẩm)
         </h2>
-        <div className="row">
-          {cartItems.map((product) => (
-            <div className="col-md-6" key={product.id}>
-              <div className="card mb-3">
-                <div className="row g-0">
-                  <div className="col-md-4">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="img-fluid"
-                    />
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Ảnh</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th>Tổng tiền</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cartItems.map((product) => (
+              <tr key={product.id}>
+                <td>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="img-fluid"
+                  />
+                </td>
+                <td>{product.name}</td>
+                <td>{formatNumberWithCommas(product.price)} ₫</td>
+                <td>
+                  <div className="quantity">
+                    <button
+                      onClick={() => decreaseQuantity(product.id)}
+                      className="btn btn-secondary"
+                    >
+                      <FontAwesomeIcon icon={faMinus} />
+                    </button>
+                    <span className="quantity-text text-center">
+                      {product.quantity}
+                    </span>
+                    <button
+                      onClick={() => increaseQuantity(product.id)}
+                      className="btn btn-secondary"
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
                   </div>
-                  <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title">{product.name}</h5>
-                      <p className="card-text">Giá: {product.price} ₫</p>
-                      <div className="quantity">
-                        <button
-                          onClick={() => decreaseQuantity(product.id)}
-                          className="btn btn-secondary"
-                        >
-                          <FontAwesomeIcon icon={faMinus} />
-                        </button>
-                        <span className="quantity-text text-center">
-                          {product.quantity}
-                        </span>
-                        <button
-                          onClick={() => increaseQuantity(product.id)}
-                          className="btn btn-secondary"
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                        </button>
-                      </div>
-                      <button
-                        onClick={() => removeFromCart(product.id)}
-                        className="btn btn-danger remove-button"
-                      >
-                        <FontAwesomeIcon icon={faTrash} /> Xóa
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                </td>
+                <td>{formatNumberWithCommas(product.price * product.quantity)} ₫</td>
+                <td>
+                  <button
+                    onClick={() => removeFromCart(product.id)}
+                    className="btn btn-danger remove-button"
+                  >
+                    <FontAwesomeIcon icon={faTrash} /> Xóa
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <div className="text-center">
           <p className="text-center">
             Tổng cộng: {formatNumberWithCommas(totalAmount)} ₫

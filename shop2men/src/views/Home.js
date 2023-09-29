@@ -159,7 +159,7 @@ function Home() {
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text">{formatNumberWithCommas(product.price)} ₫</p>
         <button className="btn btn-primary" onClick={() => addToCart(product)}>
-          MUA
+          Thêm vào giỏ hàng
         </button>
       </div>
     </div>
