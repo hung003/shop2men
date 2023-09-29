@@ -9,6 +9,7 @@ import Login from "../views/Login";
 import Register from "../views/Register";
 import User from "../views/Users";
 import Product from '../views/product-clothes';
+import LoginAdmin from './../admin/LoginAdmin';
 function AppRoutes() {
   return (
     <Router>
@@ -23,6 +24,7 @@ function AppRoutes() {
           <Route path="/user/:userId" element={<User />} />
           <Route path="/checkout" element={<  Checkout />} />
           <Route path="/products" element={<Product />} />
+          <Route path="/Login-Admin" element={<LoginAdmin />} />
         </Routes>
       </div>
     </Router>

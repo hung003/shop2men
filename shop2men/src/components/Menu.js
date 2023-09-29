@@ -30,13 +30,13 @@ function Menu({ userEmail, handleUserClick, cartItemCount }) {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/home">
+                <Link className="nav-link" to="/">
                   Sản phẩm
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/home">
-                  Liên hệ
+                <Link className="nav-link" to="/Login-Admin">
+                  Admin
                 </Link>
               </li>
             </ul>
